@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  /* shadcn-style vars used by pasted ui components (cinematic hero color-mix) */
+  --color-foreground: #ffffff;
+  --color-background: #000000;
+  /* HSL triplets for pasted components that compose hsl(var(--token)/alpha) */
+  --foreground: 0 0% 100%;
+  --muted: 0 0% 10%;
+  --destructive: 3 84% 68%;
+  --warning: 34 92% 50%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  background-color: #000000;
+  color: #ffffff;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* ── Monochrome homepage atmosphere ──────────────────────────────
+   White key-light over pure black, green reserved for signals. */
+.ember-sky {
+  background:
+    radial-gradient(46% 38% at 14% 0%, rgba(255, 255, 255, 0.07) 0%, transparent 62%),
+    radial-gradient(36% 30% at 86% 10%, rgba(6, 193, 103, 0.06) 0%, transparent 60%),
+    radial-gradient(90% 70% at 50% 115%, rgba(255, 255, 255, 0.04) 0%, transparent 65%);
+}
+
+.ember-glow {
+  background: radial-gradient(closest-side, rgba(6, 193, 103, 0.09), transparent 70%);
+}
+
+@keyframes ember-drift {
+  from { transform: translate3d(-3%, -2%, 0) scale(1); }
+  to { transform: translate3d(3%, 2%, 0) scale(1.08); }
+}
+.ember-drift {
+  animation: ember-drift 22s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ember-drift { animation: none; }
+}
+
+/* Fixed film grain — pointer-transparent, covers the page uniformly. */
+.ember-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.glass-panel {
+  background-color: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card {
+  background-color: #141414;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s;
+}
+
+.glass-card:hover {
+  border-color: rgba(6, 193, 103, 0.45);
+  transform: translateY(-2px);
+  background-color: #1a1a1a;
+}
+
+.glow-orange {
+  box-shadow: 0 0 60px -12px rgba(255, 255, 255, 0.22);
+}
+
+
+.badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+/* Outlined display type used in the scroll story */
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.22);
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}

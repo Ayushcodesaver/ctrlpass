@@ -1,0 +1,8 @@
+{
+  "name": "YtReactNative",
+  "displayName": "CtrlPass",
+  "expo": {
+    "scheme": "ctrlpass",
+    "version": "1.0.0"
+  }
+}
