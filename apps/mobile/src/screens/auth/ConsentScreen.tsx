@@ -8,6 +8,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import { Checkbox } from '../../components/checkbox';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { accountService, CONSENT_DOCS } from '../../services/account';
@@ -190,43 +191,14 @@ export default function ConsentScreen() {
 
         {/* Agreement */}
 
-        <Pressable
-          onPress={() => setAgreed(value => !value)}
-          accessibilityRole="checkbox"
-          accessibilityState={{ checked: agreed }}
-          accessibilityLabel="I agree to the Terms of Service, Privacy Policy and data processing"
-          style={({ pressed }) => [
-            styles.agreement,
-            agreed && styles.agreementActive,
-            pressed && styles.pressed,
-          ]}
-        >
-          <View
-            style={[
-              styles.checkbox,
-              agreed && styles.checkboxActive,
-            ]}
-          >
-            {agreed ? (
-              <Text style={styles.check}>
-                ✓
-              </Text>
-            ) : null}
-          </View>
-
-          <View style={styles.agreementCopy}>
-            <Text style={styles.agreementTitle}>
-              I understand and agree
-            </Text>
-
-            <Text style={styles.agreementText}>
-              I have read and agree to the Terms of
-              Service and Privacy Policy, and consent
-              to CtrlPass processing my data as
-              described above.
-            </Text>
-          </View>
-        </Pressable>
+        <View style={styles.agreement}>
+          <Checkbox
+            checked={agreed}
+            onCheckedChange={(checked) => setAgreed(checked)}
+            label="I understand and agree"
+            description="I have read and agree to the Terms of Service and Privacy Policy, and consent to CtrlPass processing my data as described above."
+          />
+        </View>
 
         {/* Legal links */}
 

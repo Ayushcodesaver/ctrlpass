@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import {
   Alert,
   StyleSheet,
-  Switch,
   Text,
   View,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { LoadingState } from '../../components';
+import { Switch } from '../../components/switch';
+import { toast } from '../../components/toast';
 import {
   accountService,
   UserSettings,
@@ -59,10 +60,9 @@ export default function NotificationSettingsScreen() {
       .getSettings()
       .then(setSettings)
       .catch(() => {
-        Alert.alert(
-          'Could not load preferences',
-          'Try again later.',
-        );
+        toast.error('Could not load preferences', {
+          description: 'Try again later.',
+        });
       });
   }, []);
 
@@ -87,10 +87,9 @@ export default function NotificationSettingsScreen() {
     } catch (e: any) {
       setSettings(previous);
 
-      Alert.alert(
-        'Could not save',
-        e?.message ?? 'Try again.',
-      );
+      toast.error('Could not save', {
+        description: e?.message ?? 'Try again.',
+      });
     } finally {
       setSaving(null);
     }
@@ -258,21 +257,10 @@ function PreferenceRow({
         </View>
 
         <Switch
-          value={enabled}
-          onValueChange={onToggle}
+          checked={enabled}
+          onCheckedChange={() => onToggle(!enabled)}
           disabled={saving}
-          trackColor={{
-            false: '#292929',
-            true: colors.champagne,
-          }}
-          thumbColor="#F5F5F2"
-          ios_backgroundColor="#292929"
-          accessibilityRole="switch"
           accessibilityLabel={title}
-          accessibilityState={{
-            checked: enabled,
-            busy: saving,
-          }}
         />
       </View>
 

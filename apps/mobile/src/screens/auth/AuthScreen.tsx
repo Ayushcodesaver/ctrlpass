@@ -815,7 +815,7 @@ export default function AuthScreen() {
           autoCapitalize="none"
           value={newPassword}
           onChangeText={setNewPassword}
-          height={54}
+          style={{ height: 54 }}
         />
       </View>
 
@@ -877,7 +877,7 @@ export default function AuthScreen() {
           keyboardType="email-address"
           value={email}
           onChangeText={setEmail}
-          height={54}
+          style={{ height: 54 }}
         />
 
         {emailMode !== 'forgot' && (
@@ -888,7 +888,7 @@ export default function AuthScreen() {
             autoCapitalize="none"
             value={password}
             onChangeText={setPassword}
-            height={54}
+            style={{ height: 54 }}
           />
         )}
       </View>

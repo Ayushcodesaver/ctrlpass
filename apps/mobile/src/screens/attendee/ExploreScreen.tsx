@@ -9,6 +9,7 @@ import {
   Image,
   useWindowDimensions,
 } from 'react-native';
+import { RangeSlider } from '../../components/range-slider';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -96,15 +97,21 @@ function ExploreHeader({
   setSearch,
   handleSearch,
   clearSearch,
-  category,
-  setCategory,
+  selectedCategories,
+  toggleCategory,
+  maxPrice,
+  setMaxPrice,
+  priceCeiling,
 }: {
   search: string;
   setSearch: (value: string) => void;
   handleSearch: () => void;
   clearSearch: () => void;
-  category: string;
-  setCategory: (value: string) => void;
+  selectedCategories: string[];
+  toggleCategory: (value: string) => void;
+  maxPrice: number | null;
+  setMaxPrice: (value: number | null) => void;
+  priceCeiling: number;
 }) {
   return (
     <View style={s.header}>
@@ -143,11 +150,33 @@ function ExploreHeader({
           <CategoryPill
             key={item}
             label={item}
-            active={item === category}
-            onPress={() => setCategory(item)}
+            active={
+              item === 'All'
+                ? selectedCategories.length === 0
+                : selectedCategories.includes(item)
+            }
+            onPress={() => toggleCategory(item)}
           />
         ))}
       </ScrollView>
+
+      {priceCeiling > 0 ? (
+        <View style={s.priceFilter}>
+          <Text style={s.priceFilterLabel}>
+            {maxPrice === null
+              ? 'Any price'
+              : `Up to ₹${maxPrice}`}
+          </Text>
+
+          <RangeSlider
+            value={maxPrice ?? Math.ceil(priceCeiling / 100)}
+            onValueChange={value => setMaxPrice(value)}
+            min={0}
+            max={Math.ceil(priceCeiling / 100)}
+            step={50}
+          />
+        </View>
+      ) : null}
     </View>
   );
 }
@@ -242,7 +271,8 @@ export default function ExploreScreen() {
   const { width } = useWindowDimensions();
 
   const [events, setEvents] = useState<Event[]>([]);
-  const [category, setCategory] = useState('All');
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [maxPrice, setMaxPrice] = useState<number | null>(null);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -252,15 +282,8 @@ export default function ExploreScreen() {
     try {
       setError(null);
 
-      const data = await eventService.listPublished({
-        category:
-          category === 'All'
-            ? undefined
-            : category,
-        search: search.trim()
-          ? search.trim()
-          : undefined,
-      });
+      const data =
+        await eventService.listPublished();
 
       setEvents(data);
     } catch (err) {
@@ -274,8 +297,9 @@ export default function ExploreScreen() {
       setLoading(false);
       setRefreshing(false);
     }
-  }, [category, search]);
+  }, []);
 
+  // initial load; search/category/price narrow client-side
   useEffect(() => {
     setLoading(true);
 
@@ -284,7 +308,17 @@ export default function ExploreScreen() {
     }, 120);
 
     return () => clearTimeout(timer);
-  }, [category, fetchEvents]);
+  }, [fetchEvents]);
+
+  const toggleCategory = useCallback((value: string) => {
+    setSelectedCategories(current =>
+      value === 'All'
+        ? []
+        : current.includes(value)
+          ? current.filter(c => c !== value)
+          : [...current, value],
+    );
+  }, []);
 
   const handleSearch = useCallback(() => {
     setLoading(true);
@@ -293,38 +327,70 @@ export default function ExploreScreen() {
 
   const clearSearch = useCallback(() => {
     setSearch('');
-    setLoading(true);
-
-    eventService
-      .listPublished({
-        category:
-          category === 'All'
-            ? undefined
-            : category,
-      })
-      .then(setEvents)
-      .catch(err => {
-        setError(
-          err instanceof Error
-            ? err.message
-            : 'Could not load events',
-        );
-        setEvents([]);
-      })
-      .finally(() => setLoading(false));
-  }, [category]);
+    setSelectedCategories([]);
+    setMaxPrice(null);
+  }, []);
 
   const clearFilters = useCallback(() => {
-    setCategory('All');
+    setSelectedCategories([]);
+    setMaxPrice(null);
     setSearch('');
   }, []);
 
   const hasFilters =
-    category !== 'All' ||
+    selectedCategories.length > 0 ||
+    maxPrice !== null ||
     search.trim().length > 0;
 
-  const featuredEvent = events[0];
-  const remainingEvents = events.slice(1);
+  const priceCeiling = useMemo(() => {
+    let highest = 0;
+    for (const event of events) {
+      for (const tier of event.ticket_types ?? []) {
+        if (tier.price_minor > highest) {
+          highest = tier.price_minor;
+        }
+      }
+    }
+    return highest;
+  }, [events]);
+
+  const visibleEvents = useMemo(() => {
+    const query = search.trim().toLowerCase();
+
+    return events.filter(event => {
+      const matchesCategory =
+        selectedCategories.length === 0 ||
+        (event.category
+          ? selectedCategories.includes(event.category)
+          : false);
+
+      const lowestPrice = (event.ticket_types ?? [])
+        .filter(tier => tier.price_minor > 0)
+        .reduce<number | null>(
+          (lowest, tier) =>
+            lowest === null || tier.price_minor < lowest
+              ? tier.price_minor
+              : lowest,
+          null,
+        );
+
+      const matchesPrice =
+        maxPrice === null ||
+        lowestPrice === null ||
+        lowestPrice <= maxPrice * 100;
+
+      const matchesSearch =
+        !query ||
+        event.name?.toLowerCase().includes(query) ||
+        event.venue?.city?.toLowerCase().includes(query) ||
+        event.venue?.name?.toLowerCase().includes(query);
+
+      return matchesCategory && matchesPrice && matchesSearch;
+    });
+  }, [events, selectedCategories, maxPrice, search]);
+
+  const featuredEvent = visibleEvents[0];
+  const remainingEvents = visibleEvents.slice(1);
 
   const miniCardWidth = useMemo(() => {
     return Math.min(
@@ -348,8 +414,11 @@ export default function ExploreScreen() {
           setSearch={setSearch}
           handleSearch={handleSearch}
           clearSearch={clearSearch}
-          category={category}
-          setCategory={setCategory}
+          selectedCategories={selectedCategories}
+          toggleCategory={toggleCategory}
+          maxPrice={maxPrice}
+          setMaxPrice={setMaxPrice}
+          priceCeiling={priceCeiling}
         />
 
         {error ? (
@@ -359,7 +428,7 @@ export default function ExploreScreen() {
               onRetry={fetchEvents}
             />
           </View>
-        ) : events.length === 0 ? (
+        ) : visibleEvents.length === 0 ? (
           <ExploreEmptyState
             onClear={clearFilters}
             hasFilters={hasFilters}
@@ -395,9 +464,9 @@ export default function ExploreScreen() {
             <View style={s.resultHeader}>
               <View>
                 <Text style={s.resultEyebrow}>
-                  {category === 'All'
-                    ? 'CURATED FOR YOU'
-                    : `${category.toUpperCase()} EVENTS`}
+                  {selectedCategories.length === 1
+                    ? `${selectedCategories[0].toUpperCase()} EVENTS`
+                    : 'CURATED FOR YOU'}
                 </Text>
 
                 <Text style={s.resultTitle}>
@@ -405,7 +474,7 @@ export default function ExploreScreen() {
                 </Text>
               </View>
 
-              <EventCount count={events.length} />
+              <EventCount count={visibleEvents.length} />
             </View>
 
             {/* ---------------------------------------------------
@@ -516,6 +585,18 @@ export default function ExploreScreen() {
 }
 
 const s = StyleSheet.create({
+  priceFilter: {
+    paddingHorizontal: 20,
+    marginTop: 14,
+  },
+
+  priceFilterLabel: {
+    color: colors.textMuted,
+    fontSize: 12,
+    fontWeight: '600',
+    marginBottom: 10,
+  },
+
   container: {
     flex: 1,
     backgroundColor: colors.ink,
@@ -854,5 +935,5 @@ const s = StyleSheet.create({
     color: '#4F4C47',
     fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-      },
+  },
 });

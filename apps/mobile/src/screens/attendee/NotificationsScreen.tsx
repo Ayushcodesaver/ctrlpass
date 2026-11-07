@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import {
   ActivityIndicator,
-  FlatList,
+  ScrollView,
   Pressable,
   RefreshControl,
   StyleSheet,
@@ -12,6 +12,8 @@ import { useFocusEffect } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { profileService } from '../../services/profile';
+import { SwipeableList } from '../../components/swipeable-list';
+import { toast } from '../../components/toast';
 import { AppNotification } from '../../types';
 import { colors } from '../../theme';
 import { formatDateTime } from '../../lib/utils';
@@ -212,20 +214,56 @@ export default function NotificationsScreen() {
     }
   }, [markingRead, notifications]);
 
-  const renderItem = useCallback(
-    ({
-      item,
-      index,
-    }: {
-      item: AppNotification;
-      index: number;
-    }) => (
-      <NotificationItem
-        item={item}
-        index={index}
-      />
-    ),
-    [],
+  const markOneRead = useCallback(async (id: string) => {
+    try {
+      await profileService.markNotificationsRead([id]);
+
+      setNotifications(current =>
+        current.map(notification =>
+          notification.id === id
+            ? {
+                ...notification,
+                read_at: new Date().toISOString(),
+              }
+            : notification,
+        ),
+      );
+    } catch {
+      toast.error('Could not mark as read');
+    }
+  }, []);
+
+  const swipeItems = useMemo(
+    () =>
+      notifications.map((notification, index) => ({
+        id: notification.id,
+        content: (
+          <NotificationItem
+            item={notification}
+            index={index}
+          />
+        ),
+        ...(notification.read_at
+          ? {}
+          : {
+              rightActions: [
+                {
+                  id: 'mark-read',
+                  label: 'Mark read',
+                  tone: 'primary' as const,
+                  icon: ({ size, color }: { size: number; color: string }) => (
+                    <Text style={{ color, fontSize: size }}>
+                      ✓
+                    </Text>
+                  ),
+                  onPress: (item: { id: string }) => {
+                    void markOneRead(item.id);
+                  },
+                },
+              ],
+            }),
+      })),
+    [notifications, markOneRead],
   );
 
   if (loading) {
@@ -245,10 +283,7 @@ export default function NotificationsScreen() {
 
   return (
     <View style={styles.screen}>
-      <FlatList
-        data={notifications}
-        keyExtractor={item => item.id}
-        renderItem={renderItem}
+      <ScrollView
         showsVerticalScrollIndicator={false}
         refreshControl={
           <RefreshControl
@@ -266,7 +301,8 @@ export default function NotificationsScreen() {
           },
           notifications.length === 0 && styles.emptyContent,
         ]}
-        ListHeaderComponent={
+      >
+      {
           <View style={styles.header}>
             <View style={styles.headerTop}>
               <View>
@@ -316,7 +352,12 @@ export default function NotificationsScreen() {
             ) : null}
           </View>
         }
-        ListEmptyComponent={
+
+        {notifications.length > 0 ? (
+          <SwipeableList items={swipeItems} />
+        ) : null}
+
+        {notifications.length === 0 ? (
           <View style={styles.emptyState}>
             <View style={styles.emptyOrb}>
               <View style={styles.emptyOrbInner}>
@@ -333,8 +374,8 @@ export default function NotificationsScreen() {
               will appear here.
             </Text>
           </View>
-        }
-      />
+        ) : null}
+      </ScrollView>
     </View>
   );
 }

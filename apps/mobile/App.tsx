@@ -4,6 +4,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ClerkProvider } from '@clerk/expo';
 import { tokenCache } from '@clerk/expo/token-cache';
 import { TamaguiProvider } from 'tamagui';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Toaster } from './src/components/toast';
 import tamaguiConfig from './tamagui.config';
 import { AuthProvider } from './src/hooks/useAuth';
 import RootNavigator from './src/navigation/RootNavigator';
@@ -33,18 +35,25 @@ export default function App() {
 
   return (
     <ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}>
-      <SafeAreaProvider>
-        <TamaguiProvider config={tamaguiConfig} defaultTheme="dark">
-          <AuthProvider>
-            <RootNavigator />
-          </AuthProvider>
-        </TamaguiProvider>
-      </SafeAreaProvider>
+      <GestureHandlerRootView style={styles.flex}>
+        <SafeAreaProvider>
+          <TamaguiProvider config={tamaguiConfig} defaultTheme="dark">
+            <AuthProvider>
+              <RootNavigator />
+              <Toaster />
+            </AuthProvider>
+          </TamaguiProvider>
+        </SafeAreaProvider>
+      </GestureHandlerRootView>
     </ClerkProvider>
   );
 }
 
 const styles = StyleSheet.create({
+  flex: {
+    flex: 1,
+  },
+
   notice: {
     flex: 1,
     backgroundColor: '#050505',

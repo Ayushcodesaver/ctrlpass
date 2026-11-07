@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const { getDefaultConfig } = require('expo/metro-config');
 const { mergeConfig } = require('@react-native/metro-config');
+const { withUniwindConfig } = require('uniwind/metro');
 
 // @babel/runtime ships as an exports-only package (no `main`, no index.js).
 // Metro's default resolution can't enter it, so deep helper imports injected
@@ -41,4 +42,10 @@ const config = {
   },
 };
 
-module.exports = mergeConfig(getDefaultConfig(__dirname), config);
+// uniwind styles the beUI components (Tailwind for RN)
+const uniwindConfig = withUniwindConfig(mergeConfig(getDefaultConfig(__dirname), config), {
+  cssEntryFile: './src/styles/theme.css',
+  dtsFile: './src/uniwind.d.ts',
+});
+
+module.exports = uniwindConfig;

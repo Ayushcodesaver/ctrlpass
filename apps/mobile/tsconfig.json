@@ -27,7 +27,8 @@
   "include": [
     "src/**/*",
     "App.tsx",
-    "index.js"
+    "index.js",
+    "../../node_modules/uniwind/types.d.ts"
   ],
   "exclude": [
     "node_modules",

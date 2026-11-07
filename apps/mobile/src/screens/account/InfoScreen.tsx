@@ -8,6 +8,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import { BouncyAccordion } from '../../components/bouncy-accordion';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { colors } from '../../theme';
@@ -105,13 +106,13 @@ export default function InfoScreen({
             title={TITLES[doc]}
             intro="The rules that govern your use of CtrlPass and the ticketing platform."
           >
-            {TERMS.map(([heading, body]) => (
-              <DocumentSection
-                key={heading}
-                heading={heading}
-                body={body}
-              />
-            ))}
+            <BouncyAccordion
+              items={TERMS.map(([heading, body]) => ({
+                id: heading,
+                title: heading,
+                description: body,
+              }))}
+            />
           </DocumentLayout>
         )}
 
@@ -121,13 +122,13 @@ export default function InfoScreen({
             title={TITLES[doc]}
             intro="How CtrlPass handles account, booking, ticket and operational information."
           >
-            {PRIVACY.map(([heading, body]) => (
-              <DocumentSection
-                key={heading}
-                heading={heading}
-                body={body}
-              />
-            ))}
+            <BouncyAccordion
+              items={PRIVACY.map(([heading, body]) => ({
+                id: heading,
+                title: heading,
+                description: body,
+              }))}
+            />
           </DocumentLayout>
         )}
 

@@ -11,6 +11,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import { Card } from '../../components/card';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -407,7 +408,7 @@ export default function ProfileScreen() {
 
           {/* Quick actions */}
           {!editing ? (
-            <View style={styles.quickActions}>
+            <Card style={styles.quickActions}>
               <QuickAction
                 icon="ticket"
                 label="Orders"
@@ -432,7 +433,7 @@ export default function ProfileScreen() {
                   nav.navigate('NotificationSettings')
                 }
               />
-            </View>
+            </Card>
           ) : null}
 
           {/* Volunteer */}

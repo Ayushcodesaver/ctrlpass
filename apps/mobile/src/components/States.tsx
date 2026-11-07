@@ -1,10 +1,10 @@
 import React from 'react';
 import {
-  ActivityIndicator,
   Pressable,
   StyleSheet,
   View,
 } from 'react-native';
+import { Loader } from './loader';
 import { Text } from 'tamagui';
 
 const COLORS = {
@@ -74,8 +74,9 @@ export function LoadingState({
   return (
     <View style={styles.fullState}>
       <View style={styles.loadingOrb}>
-        <ActivityIndicator
-          size="small"
+        <Loader
+          variant="dots"
+          size={30}
           color={COLORS.champagne}
         />
       </View>

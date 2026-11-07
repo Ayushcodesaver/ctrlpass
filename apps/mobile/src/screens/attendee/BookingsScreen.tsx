@@ -17,6 +17,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LoadingSkeleton } from '../../components';
 import { bookingService } from '../../services/bookings';
 import { Booking } from '../../types';
+import { toast } from '../../components/toast';
 import { AttendeeStackParamList } from '../../navigation/types';
 import {
   colors,
@@ -103,14 +104,18 @@ export default function BookingsScreen() {
   const [refreshing, setRefreshing] = useState(false);
   const [filter, setFilter] = useState<Filter>('ALL');
 
-  const load = useCallback(async () => {
+  const load = useCallback(async (options?: { silent?: boolean }) => {
     try {
       const list =
         await bookingService.listMyBookings();
 
       setBookings(list);
-    } catch {
-      // Existing service handles the underlying failure.
+    } catch (error) {
+      if (options?.silent) {
+        // Initial load keeps its own error state below.
+        return;
+      }
+      throw error;
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -125,7 +130,14 @@ export default function BookingsScreen() {
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
-    await load();
+    try {
+      await load();
+      toast.success('Bookings updated');
+    } catch {
+      toast.error('Could not refresh your bookings');
+    } finally {
+      setRefreshing(false);
+    }
   }, [load]);
 
   const filteredBookings = useMemo(() => {

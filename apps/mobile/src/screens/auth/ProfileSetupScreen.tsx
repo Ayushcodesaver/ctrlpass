@@ -17,6 +17,15 @@ import {
 import { useAuth } from '../../hooks/useAuth';
 import { profileService } from '../../services/profile';
 
+const CITY_OPTIONS = [
+  'Delhi-NCR',
+  'Mumbai',
+  'Bengaluru',
+  'Goa',
+  'Hyderabad',
+  'Pune',
+];
+
 export default function ProfileSetupScreen() {
   const { session, refresh } = useAuth();
   const insets = useSafeAreaInsets();
@@ -128,61 +137,57 @@ export default function ProfileSetupScreen() {
 
           <View style={styles.formCard}>
             <View style={styles.field}>
-              <Text style={styles.label}>
-                FULL NAME
-              </Text>
-
-              <View style={styles.inputWrap}>
-                <TextInput
-                  placeholder="Your full name"
-                  placeholderTextColor="#55514B"
-                  value={fullName}
-                  onChangeText={setFullName}
-                  autoCapitalize="words"
-                  returnKeyType="next"
-                  style={styles.input}
-                />
-              </View>
+              <Input
+                label="Full name"
+                placeholder="Your full name"
+                value={fullName}
+                onChangeText={setFullName}
+                autoCapitalize="words"
+                returnKeyType="next"
+                success={fullName.trim().length > 1}
+              />
             </View>
 
             <View style={styles.fieldDivider} />
 
             <View style={styles.field}>
-              <Text style={styles.label}>
-                PHONE NUMBER
-              </Text>
-
-              <View style={styles.inputWrap}>
-                <TextInput
-                  placeholder="+91 98765 43210"
-                  placeholderTextColor="#55514B"
-                  value={phone}
-                  onChangeText={setPhone}
-                  keyboardType="phone-pad"
-                  returnKeyType="next"
-                  style={styles.input}
-                />
-              </View>
+              <Input
+                label="Phone number"
+                placeholder="+91 98765 43210"
+                value={phone}
+                onChangeText={setPhone}
+                keyboardType="phone-pad"
+                returnKeyType="next"
+              />
             </View>
 
-            <View style={styles.fieldDivider} />
-
             <View style={styles.field}>
-              <Text style={styles.label}>
-                CITY
-              </Text>
+              <Select
+                value={city}
+                onValueChange={(value) =>
+                  setCity(value === 'Other' ? '' : value)
+                }
+              >
+                <SelectTrigger
+                  accessibilityLabel="City"
+                >
+                  <SelectValue placeholder="Where are you based?" />
+                </SelectTrigger>
 
-              <View style={styles.inputWrap}>
-                <TextInput
-                  placeholder="Where are you based?"
-                  placeholderTextColor="#55514B"
-                  value={city}
-                  onChangeText={setCity}
-                  autoCapitalize="words"
-                  returnKeyType="done"
-                  style={styles.input}
-                />
-              </View>
+                <SelectContent>
+                  {CITY_OPTIONS.map((option) => (
+                    <SelectItem
+                      key={option}
+                      value={option}
+                    >
+                      {option}
+                    </SelectItem>
+                  ))}
+                  <SelectItem value="Other">
+                    Other
+                  </SelectItem>
+                </SelectContent>
+              </Select>
             </View>
           </View>
 
@@ -289,10 +294,10 @@ export default function ProfileSetupScreen() {
 }
 
 /*
- * Local TextInput import kept below the component
  * to keep the screen structure easy to scan.
  */
-import { TextInput } from 'react-native';
+import { Input } from '../../components/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../components/select';
 import { colors } from '../../theme';
 
 const styles = StyleSheet.create({

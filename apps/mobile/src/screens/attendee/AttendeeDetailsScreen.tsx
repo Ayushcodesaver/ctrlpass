@@ -339,41 +339,51 @@ export default function AttendeeDetailsScreen({
                           <FieldDivider />
                         ) : null}
 
-                        <PremiumField
-                          label={`${field.label.toUpperCase()}${
-                            field.required
-                              ? '  • REQUIRED'
-                              : ''
-                          }`}
-                          value={
-                            extraFields[
-                              field.field_key
-                            ] ?? ''
-                          }
-                          placeholder={
-                            field.options?.length
-                              ? field.options.join(
-                                  '  ·  ',
-                                )
-                              : `Enter ${field.label.toLowerCase()}`
-                          }
-                          onChangeText={value =>
-                            handleExtraFieldChange(
-                              field.field_key,
-                              value,
-                            )
-                          }
-                        />
-
                         {field.options?.length ? (
-                          <Text
-                            style={s.optionsHint}
+                          <RadioGroup
+                            value={
+                              extraFields[
+                                field.field_key
+                              ] ?? ''
+                            }
+                            onValueChange={value =>
+                              handleExtraFieldChange(
+                                field.field_key,
+                                value,
+                              )
+                            }
                           >
-                            {field.options.join(
-                              '  ·  ',
+                            {field.options.map(
+                              option => (
+                                <RadioGroupItem
+                                  key={option}
+                                  value={option}
+                                  label={option}
+                                />
+                              ),
                             )}
-                          </Text>
-                        ) : null}
+                          </RadioGroup>
+                        ) : (
+                          <PremiumField
+                            label={`${field.label}${
+                              field.required
+                                ? ' (required)'
+                                : ''
+                            }`}
+                            value={
+                              extraFields[
+                                field.field_key
+                              ] ?? ''
+                            }
+                            placeholder={`Enter ${field.label.toLowerCase()}`}
+                            onChangeText={value =>
+                              handleExtraFieldChange(
+                                field.field_key,
+                                value,
+                              )
+                            }
+                          />
+                        )}
                       </React.Fragment>
                     ),
                   )}
@@ -522,6 +532,7 @@ function PremiumField({
 import {
   TextInput,
 } from 'react-native';
+import { RadioGroup, RadioGroupItem } from '../../components/radio';
 
 function TextInputCompat(
   props: React.ComponentProps<typeof TextInput>,

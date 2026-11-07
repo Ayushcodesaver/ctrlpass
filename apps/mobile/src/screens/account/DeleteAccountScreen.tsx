@@ -3,12 +3,12 @@ import {
   Alert,
   KeyboardAvoidingView,
   Platform,
-  Pressable,
   ScrollView,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
+import { Checkbox } from '../../components/checkbox';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Button } from '../../components';
@@ -164,41 +164,14 @@ export default function DeleteAccountScreen() {
 
           {/* Confirmation */}
 
-          <Pressable
-            onPress={() => setConfirm(value => !value)}
-            accessibilityRole="checkbox"
-            accessibilityState={{
-              checked: confirm,
-            }}
-            style={({ pressed }) => [
-              styles.confirmRow,
-              pressed && styles.confirmPressed,
-            ]}
-          >
-            <View
-              style={[
-                styles.checkbox,
-                confirm && styles.checkboxChecked,
-              ]}
-            >
-              {confirm ? (
-                <Text style={styles.check}>
-                  ✓
-                </Text>
-              ) : null}
-            </View>
-
-            <View style={styles.confirmCopy}>
-              <Text style={styles.confirmTitle}>
-                I understand
-              </Text>
-
-              <Text style={styles.confirmText}>
-                I understand that my account will be
-                deactivated and I will be signed out.
-              </Text>
-            </View>
-          </Pressable>
+          <View style={styles.confirmRow}>
+            <Checkbox
+              checked={confirm}
+              onCheckedChange={(checked) => setConfirm(checked)}
+              label="I understand"
+              description="I understand that my account will be deactivated and I will be signed out."
+            />
+          </View>
 
           {/* CTA */}
 

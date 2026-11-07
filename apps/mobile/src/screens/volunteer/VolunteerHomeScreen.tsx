@@ -7,6 +7,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import { AnimatedBadge } from '../../components/animated-badge';
 import {
   useFocusEffect,
   useNavigation,
@@ -195,11 +196,9 @@ export default function VolunteerHomeScreen() {
                 </View>
 
                 <View style={styles.liveBadge}>
-                  <View style={styles.liveBadgeDot} />
-
-                  <Text style={styles.liveBadgeText}>
+                  <AnimatedBadge status="success" pulse size="sm">
                     LIVE
-                  </Text>
+                  </AnimatedBadge>
                 </View>
               </View>
             ) : null

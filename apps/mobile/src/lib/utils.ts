@@ -53,3 +53,11 @@ export function formatPaiseCompact(minor: number): string {
   if (rupees >= 1000) return `₹${(rupees / 1000).toFixed(1)}K`;
   return `₹${Math.round(rupees)}`;
 }
+
+/* shadcn-style class merge (added for beUI registry components) */
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}

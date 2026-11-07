@@ -30,6 +30,7 @@ import { AttendeeStackParamList } from '../../navigation/types';
 
 import { colors, spacing, typography } from '../../theme';
 import { formatDateTime } from '../../lib/utils';
+import { Tabs, TabsList, TabsTrigger } from '../../components/tabs';
 
 type Filter = 'ACTIVE' | 'USED';
 
@@ -195,23 +196,23 @@ export default function TicketsScreen() {
               --------------------------------------------------- */}
 
               <View style={s.filterShell}>
-                <TicketFilter
-                  label="Active"
-                  count={activeCount}
-                  active={filter === 'ACTIVE'}
-                  onPress={() =>
-                    setFilter('ACTIVE')
+                <Tabs
+                  value={filter}
+                  onValueChange={(value) =>
+                    setFilter(value as Filter)
                   }
-                />
+                  variant="segment"
+                >
+                  <TabsList>
+                    <TabsTrigger value="ACTIVE">
+                      Active · {activeCount}
+                    </TabsTrigger>
 
-                <TicketFilter
-                  label="Past"
-                  count={pastCount}
-                  active={filter === 'USED'}
-                  onPress={() =>
-                    setFilter('USED')
-                  }
-                />
+                    <TabsTrigger value="USED">
+                      Past · {pastCount}
+                    </TabsTrigger>
+                  </TabsList>
+                </Tabs>
               </View>
 
               {/* ---------------------------------------------------
@@ -261,58 +262,6 @@ export default function TicketsScreen() {
    FILTER
 ================================================================= */
 
-function TicketFilter({
-  label,
-  count,
-  active,
-  onPress,
-}: {
-  label: string;
-  count: number;
-  active: boolean;
-  onPress: () => void;
-}) {
-  return (
-    <Pressable
-      onPress={onPress}
-      accessibilityRole="tab"
-      accessibilityState={{
-        selected: active,
-      }}
-      style={({ pressed }) => [
-        s.filter,
-        active && s.filterActive,
-        pressed && s.pressed,
-      ]}
-    >
-      <Text
-        style={[
-          s.filterLabel,
-          active && s.filterLabelActive,
-        ]}
-      >
-        {label}
-      </Text>
-
-      <View
-        style={[
-          s.filterCount,
-          active && s.filterCountActive,
-        ]}
-      >
-        <Text
-          style={[
-            s.filterCountText,
-            active &&
-              s.filterCountTextActive,
-          ]}
-        >
-          {count}
-        </Text>
-      </View>
-    </Pressable>
-  );
-}
 
 /* =================================================================
    TICKET CARD

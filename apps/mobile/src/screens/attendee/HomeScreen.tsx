@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   View,
   Text,
@@ -6,6 +6,9 @@ import {
   ScrollView,
   RefreshControl,
 } from 'react-native';
+import { TextReveal } from '../../components/text-animation';
+import { Menu, MenuContent, MenuRadioGroup, MenuRadioItem, MenuTrigger } from '../../components/menu';
+import { AnimatedNumber } from '../../components/number';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
@@ -60,6 +63,39 @@ export default function HomeScreen() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<Event[] | null>(null);
   const [searching, setSearching] = useState(false);
+  const [selectedCity, setSelectedCity] = useState<string | null>(null);
+
+  const cityOptions = useMemo(
+    () =>
+      Array.from(
+        new Set(
+          [...featured, ...upcoming]
+            .map(event => event.venue?.city)
+            .filter(Boolean) as string[],
+        ),
+      ).sort(),
+    [featured, upcoming],
+  );
+
+  const visibleFeatured = useMemo(
+    () =>
+      selectedCity
+        ? featured.filter(
+            event => event.venue?.city === selectedCity,
+          )
+        : featured,
+    [featured, selectedCity],
+  );
+
+  const visibleUpcoming = useMemo(
+    () =>
+      selectedCity
+        ? upcoming.filter(
+            event => event.venue?.city === selectedCity,
+          )
+        : upcoming,
+    [upcoming, selectedCity],
+  );
 
   const loadData = async () => {
     try {
@@ -182,20 +218,50 @@ export default function HomeScreen() {
               {getGreeting()}
             </Text>
 
-            <Text style={styles.title}>
-              {firstName
-                ? `Find something\nworth remembering, ${firstName}.`
-                : 'Find something\nworth remembering.'}
-            </Text>
+            <TextReveal
+              text={
+                firstName
+                  ? [
+                      'Find something',
+                      `worth remembering, ${firstName}.`,
+                    ]
+                  : ['Find something', 'worth remembering.']
+              }
+              className="text-[32px] text-[#F2EADD] leading-[38px] font-bold tracking-[-1.2px]"
+            />
           </View>
 
-          <View style={styles.locationRow}>
-            <View style={styles.locationDot} />
+          <Menu>
+            <MenuTrigger
+              accessibilityLabel="Choose city"
+              style={styles.locationRow}
+            >
+              <View style={styles.locationDot} />
 
-            <Text style={styles.locationText}>
-              Gurugram
-            </Text>
-          </View>
+              <Text style={styles.locationText}>
+                {selectedCity ?? 'All cities'}
+              </Text>
+            </MenuTrigger>
+
+            <MenuContent>
+              <MenuRadioGroup
+                value={selectedCity ?? ''}
+                onValueChange={value =>
+                  setSelectedCity(value || null)
+                }
+              >
+                <MenuRadioItem value="">
+                  All cities
+                </MenuRadioItem>
+
+                {cityOptions.map(city => (
+                  <MenuRadioItem key={city} value={city}>
+                    {city}
+                  </MenuRadioItem>
+                ))}
+              </MenuRadioGroup>
+            </MenuContent>
+          </Menu>
         </View>
 
         {/* ---------------------------------------------------------
@@ -245,11 +311,18 @@ export default function HomeScreen() {
                 <Text style={styles.searchTitle}>
                   {searching
                     ? 'Finding events…'
-                    : `${searchResults.length} ${
-                        searchResults.length === 1
-                          ? 'event'
-                          : 'events'
-                      } found`}
+                    : (
+                        <>
+                          <AnimatedNumber
+                            value={searchResults.length}
+                          />
+                          {' '}
+                          {searchResults.length === 1
+                            ? 'event'
+                            : 'events'}
+                          {' found'}
+                        </>
+                      )}
                 </Text>
               </View>
             </View>
@@ -297,7 +370,7 @@ export default function HomeScreen() {
                   contentContainerStyle={styles.featuredContent}
                   decelerationRate="fast"
                 >
-                  {featured.map(event => (
+                  {visibleFeatured.map(event => (
                     <FeaturedEventCard
                       key={event.id}
                       event={event}
@@ -343,7 +416,7 @@ export default function HomeScreen() {
                 </View>
               ) : (
                 <View style={styles.eventList}>
-                  {upcoming.slice(0, 6).map(event => (
+                  {visibleUpcoming.slice(0, 6).map(event => (
                     <EventCard
                       key={event.id}
                       event={event}

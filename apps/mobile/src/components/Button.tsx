@@ -1,13 +1,13 @@
 import React from 'react';
 import {
-  Pressable,
   StyleProp,
   StyleSheet,
-  Text,
+  Text as RNText,
   View,
   ViewStyle,
 } from 'react-native';
-import { Spinner } from 'tamagui';
+import { ButtonRoot } from './button/button';
+import { Loader } from './loader';
 
 interface ButtonProps {
   title: string;
@@ -22,67 +22,25 @@ interface ButtonProps {
 type Variant = NonNullable<ButtonProps['variant']>;
 type Size = NonNullable<ButtonProps['size']>;
 
-const COLORS = {
-  background: '#050505',
-  surface: '#111111',
-  surfacePressed: '#191918',
-
-  champagne: '#D6B47A',
-  champagnePressed: '#C4A269',
-
-  text: '#F5F5F2',
-  textSecondary: '#AAA69E',
-  darkText: '#17130D',
-
-  border: '#292824',
-  borderPressed: '#3A3832',
-
+/*
+ * Kiln palette. Class strings stay literal for uniwind's static discovery;
+ * variant colors ride as inline styles so they always win the cascade.
+ * danger maps onto beUI's ghost shape with destructive inline overrides.
+ */
+const LABEL_COLOR: Record<Variant, string> = {
+  primary: '#100704',
+  secondary: '#F2EADD',
+  ghost: '#D6B47A',
   danger: '#D96B6B',
-  dangerPressed: '#C55E5E',
-
-  white: '#FFFFFF',
 };
 
-const VARIANTS: Record<
-  Variant,
-  {
-    backgroundColor: string;
-    pressedBackgroundColor: string;
-    borderColor: string;
-    pressedBorderColor: string;
-    textColor: string;
-  }
-> = {
-  primary: {
-    backgroundColor: COLORS.champagne,
-    pressedBackgroundColor: COLORS.champagnePressed,
-    borderColor: COLORS.champagne,
-    pressedBorderColor: COLORS.champagnePressed,
-    textColor: COLORS.darkText,
-  },
-
-  secondary: {
-    backgroundColor: COLORS.surface,
-    pressedBackgroundColor: COLORS.surfacePressed,
-    borderColor: COLORS.border,
-    pressedBorderColor: COLORS.borderPressed,
-    textColor: COLORS.text,
-  },
-
-  ghost: {
-    backgroundColor: 'transparent',
-    pressedBackgroundColor: 'rgba(214,180,122,0.08)',
-    borderColor: 'transparent',
-    pressedBorderColor: 'rgba(214,180,122,0.16)',
-    textColor: COLORS.champagne,
-  },
-
+const VARIANT_STYLE: Record<Variant, ViewStyle> = {
+  primary: {},
+  secondary: {},
+  ghost: {},
   danger: {
-    backgroundColor: 'rgba(217,107,107,0.08)',
-    pressedBackgroundColor: 'rgba(217,107,107,0.14)',
+    backgroundColor: 'rgba(217,107,107,0.10)',
     borderColor: 'rgba(217,107,107,0.24)',
-    pressedBorderColor: 'rgba(217,107,107,0.38)',
-    textColor: COLORS.danger,
   },
 };
 
@@ -92,6 +50,7 @@ const SIZES: Record<
     height: number;
     horizontalPadding: number;
     fontSize: number;
+    labelClass: string;
     radius: number;
   }
 > = {
@@ -99,6 +58,7 @@ const SIZES: Record<
     height: 40,
     horizontalPadding: 15,
     fontSize: 12,
+    labelClass: 'text-[12px]',
     radius: 12,
   },
 
@@ -106,6 +66,7 @@ const SIZES: Record<
     height: 50,
     horizontalPadding: 20,
     fontSize: 14,
+    labelClass: 'text-[14px]',
     radius: 15,
   },
 
@@ -113,6 +74,7 @@ const SIZES: Record<
     height: 54,
     horizontalPadding: 22,
     fontSize: 15,
+    labelClass: 'text-[15px]',
     radius: 16,
   },
 };
@@ -128,84 +90,65 @@ export function Button({
 }: ButtonProps) {
   const inactive = disabled || loading;
 
-  const variantStyle = VARIANTS[variant];
   const sizeStyle = SIZES[size];
 
   return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityState={{
-        disabled: inactive,
-        busy: loading,
-      }}
-      disabled={inactive}
-      onPress={onPress}
-      hitSlop={4}
-      style={({ pressed }) => [
+    <ButtonRoot
+      variant={variant === 'danger' ? 'ghost' : variant}
+      size={size}
+      className="w-full"
+      style={[
         styles.base,
 
         {
           height: sizeStyle.height,
           paddingHorizontal: sizeStyle.horizontalPadding,
           borderRadius: sizeStyle.radius,
-
-          backgroundColor: pressed
-            ? variantStyle.pressedBackgroundColor
-            : variantStyle.backgroundColor,
-
-          borderColor: pressed
-            ? variantStyle.pressedBorderColor
-            : variantStyle.borderColor,
         },
+
+        VARIANT_STYLE[variant],
 
         inactive && styles.disabled,
 
-        pressed &&
-          !inactive &&
-          styles.pressed,
-
         style,
       ]}
+      accessibilityState={{
+        disabled: inactive,
+        busy: loading,
+      }}
+      disabled={inactive}
+      onPress={inactive ? undefined : onPress}
     >
       {loading ? (
         <View style={styles.loadingContent}>
-          <Spinner
-            size="small"
-            color={
-              variant === 'primary'
-                ? variantStyle.textColor
-                : variantStyle.textColor
-            }
+          <Loader
+            variant="spinner"
+            size={14}
+            color={LABEL_COLOR[variant]}
           />
 
-          <Text
+          <RNText
+            className={sizeStyle.labelClass}
             style={[
               styles.label,
-              {
-                color: variantStyle.textColor,
-                fontSize: sizeStyle.fontSize,
-                marginLeft: 9,
-              },
+              { color: LABEL_COLOR[variant], fontSize: sizeStyle.fontSize },
             ]}
           >
             Please wait
-          </Text>
+          </RNText>
         </View>
       ) : (
-        <Text
-          numberOfLines={1}
+        <RNText
+          className={sizeStyle.labelClass}
           style={[
             styles.label,
-            {
-              color: variantStyle.textColor,
-              fontSize: sizeStyle.fontSize,
-            },
+            { color: LABEL_COLOR[variant], fontSize: sizeStyle.fontSize },
           ]}
         >
           {title}
-        </Text>
+        </RNText>
       )}
-    </Pressable>
+    </ButtonRoot>
   );
 }
 
@@ -220,12 +163,6 @@ const styles = StyleSheet.create({
 
     flexDirection: 'row',
 
-    // Android
-    elevation: 0,
-
-    // iOS
-    shadowOpacity: 0,
-
     overflow: 'hidden',
   },
 
@@ -239,10 +176,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-
-  pressed: {
-    transform: [{ scale: 0.985 }],
+    gap: 9,
   },
 
   disabled: {

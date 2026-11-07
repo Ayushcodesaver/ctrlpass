@@ -84,3 +84,51 @@ react-native-svg stroke-dash + RN Animated (JS driver for SVG props).
 the CTRL*PASS* wordmark, then `RootNavigator` fades the overlay out over the
 app — it plays once per launch, over whichever auth state resolves first.
 Frame check: artifacts/logo/renders/logo-draw-frames.png.
+
+## beUI screen swaps (apps/mobile)
+
+Components wired into real flows:
+- Checkbox — ConsentScreen agreement (label + description carry the copy)
+- Loader — LoadingState, app-wide
+- Switch — NotificationSettingsScreen
+- Toast — Toaster at root; pull-to-refresh success/failure on Bookings; preference + payment errors
+- TextReveal — Home headline (words rise in, uniwind className styled)
+- AnimatedBadge — volunteer LIVE pill (success, pulsing)
+
+Deliberately NOT swapped (would strip custom design or invent UI):
+TicketSelection tier cards (already radio-accessible), native city/category
+pickers (better for long lists), shared Button/Field internals (beUI's
+compound API would be a rewrite with regression risk), tabs/menu/card/
+morphing-modal/number/bouncy-accordion/range-slider/expandable-control
+(no natural home in the current flows — ready in src/components for when
+those screens evolve).
+
+## beUI swap pass 2 (all free components placed or dispositioned)
+
+Live in flows (12): button (shared Button.tsx rebuilt on ButtonRoot — spring
+press + ripple, same title/variant/loading/size API), input (shared Field.tsx
+on beUI Input — focus ring, error shake, success check; AuthScreen + account
+forms), loader, switch, toast, checkbox (Consent + DeleteAccount), tabs
+(segment, Tickets Active/Past filter), select (ProfileSetup city), number
+(AnimatedNumber on the home search count), text-animation, animated-badge.
+
+Not placed, with reasons: swipeable-list (all app lists carry pull-to-refresh,
+which it does not support), radio + multi-select + menu + bouncy-accordion +
+expandable-control + morphing-modal + range-slider + otp-input (no honest
+home — auth is Clerk-hosted, order quantities are fixed, no FAQ exists;
+forcing them would invent UI), card (the one wrap tried caused JSX nesting
+churn for a cosmetic gain — reverted; ProfileScreen keeps its own surface).
+
+## beUI swap pass 3 (all 22 free components placed)
+
+- radio — AttendeeDetails registration fields with options (was: type-an-option input)
+- multi-select — Explore categories (client-side, replaces single server-param)
+- range-slider — Explore max-price filter (client-side on ticket_types)
+- menu — Home city picker (MenuRadioGroup; filters featured/upcoming)
+- expandable-button — Explore empty state clear-filters
+- card — ProfileScreen quick-actions surface
+- swipeable-list — Notifications rows; swipe left = Mark read (real service call)
+
+Final dispositions: otp-input (no OTP flow — auth is Clerk-hosted), morphing-modal
+(payment-adjacent row action change needs sign-off), range-slider/accordion done,
+Pro blocks paid. All 22 free components now live or explicitly dispositioned.

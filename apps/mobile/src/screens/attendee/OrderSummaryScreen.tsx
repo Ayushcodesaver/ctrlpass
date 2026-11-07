@@ -7,6 +7,7 @@ import {
   ScrollView,
   Platform,
 } from 'react-native';
+import { toast } from '../../components/toast';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -292,12 +293,11 @@ export default function OrderSummaryScreen({
         bookingId: reservation.booking_id,
       });
     } catch (err) {
-      Alert.alert(
-        'Payment Error',
-        err instanceof Error
+      toast.error('Payment error', {
+        description: err instanceof Error
           ? err.message
           : 'Transaction could not be completed.',
-      );
+      });
     } finally {
       setSubmitting(false);
     }
