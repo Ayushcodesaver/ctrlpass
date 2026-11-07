@@ -22,6 +22,7 @@ import {
   RootStackParamList,
 } from '../../navigation/types';
 import { formatDateTime } from '../../lib/utils';
+import { colors } from '../../theme';
 
 export default function VolunteerHomeScreen() {
   const nav =
@@ -58,6 +59,20 @@ export default function VolunteerHomeScreen() {
     useCallback(() => {
       load();
     }, [load]),
+  );
+
+  const renderAssignment = useCallback(
+    ({ item }: { item: Event }) => (
+      <EventAssignmentCard
+        event={item}
+        onScan={() =>
+          nav.navigate('QRScanner', {
+            eventId: item.id,
+          })
+        }
+      />
+    ),
+    [nav],
   );
 
   if (loading) {
@@ -189,16 +204,7 @@ export default function VolunteerHomeScreen() {
               </View>
             ) : null
           }
-          renderItem={({ item }) => (
-            <EventAssignmentCard
-              event={item}
-              onScan={() =>
-                nav.navigate('QRScanner', {
-                  eventId: item.id,
-                })
-              }
-            />
-          )}
+          renderItem={renderAssignment}
           ListEmptyComponent={
             <View style={styles.emptyWrapper}>
               <View style={styles.emptyIcon}>
@@ -207,7 +213,7 @@ export default function VolunteerHomeScreen() {
               </View>
 
               <Text style={styles.emptyEyebrow}>
-                NO ASSIGNMENTS
+                No assignments
               </Text>
 
               <Text style={styles.emptyTitle}>
@@ -437,12 +443,13 @@ const styles = StyleSheet.create({
     marginRight: 7,
   },
 
+
   liveText: {
     color: '#817C73',
-    fontSize: 7,
+    fontSize: 11,
     fontWeight: '800',
-    letterSpacing: 1.8,
-  },
+      },
+
 
   title: {
     color: '#F5F5F2',
@@ -453,7 +460,7 @@ const styles = StyleSheet.create({
   },
 
   subtitle: {
-    color: '#77736C',
+    color: colors.textMuted,
     fontSize: 12,
     lineHeight: 18,
     marginTop: 7,
@@ -519,12 +526,12 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
 
+
   statusLabel: {
     color: '#5E5A54',
-    fontSize: 6,
+    fontSize: 11,
     fontWeight: '800',
-    letterSpacing: 1.3,
-  },
+      },
 
   statusValue: {
     color: '#BDB9B1',
@@ -565,12 +572,12 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
 
+
   sectionEyebrow: {
     color: '#625E58',
-    fontSize: 7,
+    fontSize: 11,
     fontWeight: '800',
-    letterSpacing: 1.7,
-  },
+      },
 
   sectionTitle: {
     color: '#E7E4DD',
@@ -598,12 +605,12 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
 
+
   liveBadgeText: {
     color: '#7FBF9A',
-    fontSize: 6,
+    fontSize: 11,
     fontWeight: '900',
-    letterSpacing: 1,
-  },
+      },
 
   /* ───────── Event card ───────── */
 
@@ -641,24 +648,25 @@ const styles = StyleSheet.create({
     marginRight: 6,
   },
 
+
   assignmentText: {
     color: '#7FBF9A',
-    fontSize: 6,
+    fontSize: 11,
     fontWeight: '900',
-    letterSpacing: 1,
-  },
+      },
 
   secureBadge: {
     paddingHorizontal: 8,
     paddingVertical: 5,
   },
 
+
   secureBadgeText: {
     color: '#595650',
-    fontSize: 6,
+    fontSize: 11,
     fontWeight: '800',
-    letterSpacing: 1,
-  },
+      },
+
 
   eventName: {
     color: '#F1EEE7',
@@ -719,12 +727,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
+
   metaLabel: {
     color: '#5F5B55',
-    fontSize: 6,
+    fontSize: 11,
     fontWeight: '800',
-    letterSpacing: 1.2,
-  },
+      },
 
   metaValue: {
     color: '#AAA69E',
@@ -843,12 +851,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#46433E',
   },
 
+
   emptyEyebrow: {
     color: '#9E7B48',
-    fontSize: 7,
+    fontSize: 11,
     fontWeight: '900',
-    letterSpacing: 1.7,
-  },
+      },
+
 
   emptyTitle: {
     color: '#F0EDE6',
@@ -859,7 +868,7 @@ const styles = StyleSheet.create({
   },
 
   emptyDescription: {
-    color: '#77736C',
+    color: colors.textMuted,
     fontSize: 11,
     lineHeight: 18,
     textAlign: 'center',
@@ -908,7 +917,7 @@ const styles = StyleSheet.create({
   },
 
   bottomActionText: {
-    color: '#77736C',
+    color: colors.textMuted,
     fontSize: 10,
     fontWeight: '600',
   },

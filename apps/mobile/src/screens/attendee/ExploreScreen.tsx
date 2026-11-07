@@ -539,13 +539,14 @@ const s = StyleSheet.create({
     paddingBottom: spacing.lg,
   },
 
+
   headerEyebrow: {
-    color: 'rgba(214,180,122,0.72)',
-    fontSize: 9,
+    color: colors.goldSoft,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1.8,
-    marginBottom: 8,
+        marginBottom: 8,
   },
+
 
   headerTitle: {
     color: colors.textPrimary,
@@ -588,13 +589,14 @@ const s = StyleSheet.create({
     gap: spacing.md,
   },
 
+
   resultEyebrow: {
-    color: '#77736C',
-    fontSize: 8,
+    color: colors.textMuted,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1.4,
-    marginBottom: 5,
+        marginBottom: 5,
   },
+
 
   resultTitle: {
     color: colors.textPrimary,
@@ -623,12 +625,12 @@ const s = StyleSheet.create({
     fontWeight: typography.fontWeight.bold,
   },
 
+
   countLabel: {
     color: '#68645E',
-    fontSize: 7,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1,
-    marginTop: 1,
+        marginTop: 1,
   },
 
   /* ---------------------------------------------------------------
@@ -675,6 +677,7 @@ const s = StyleSheet.create({
     backgroundColor: '#0D0D0D',
   },
 
+
   miniFallbackText: {
     color: 'rgba(214,180,122,0.35)',
     fontSize: 30,
@@ -699,12 +702,12 @@ const s = StyleSheet.create({
     borderColor: 'rgba(255,255,255,0.14)',
   },
 
+
   miniCategoryText: {
     color: '#F0ECE4',
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1,
-  },
+      },
 
   miniContent: {
     paddingHorizontal: 14,
@@ -719,7 +722,7 @@ const s = StyleSheet.create({
   },
 
   miniLocation: {
-    color: '#77736C',
+    color: colors.textMuted,
     fontSize: 11,
     marginTop: 6,
   },
@@ -771,6 +774,7 @@ const s = StyleSheet.create({
     borderColor: 'rgba(214,180,122,0.14)',
   },
 
+
   emptyTitle: {
     color: colors.textPrimary,
     fontSize: 25,
@@ -807,11 +811,11 @@ const s = StyleSheet.create({
     fontWeight: typography.fontWeight.semibold,
   },
 
+
   emptyHint: {
     color: '#5F5B55',
-    fontSize: 10,
-    letterSpacing: 0.3,
-    marginTop: spacing.xl,
+    fontSize: 11,
+        marginTop: spacing.xl,
   },
 
   pressed: {
@@ -845,10 +849,10 @@ const s = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.08)',
   },
 
+
   footerText: {
     color: '#4F4C47',
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 2,
-  },
+      },
 });

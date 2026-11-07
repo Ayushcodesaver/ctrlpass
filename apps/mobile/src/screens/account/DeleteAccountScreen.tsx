@@ -284,12 +284,12 @@ const styles = StyleSheet.create({
     marginBottom: 31,
   },
 
+
   eyebrow: {
-    color: '#77736C',
-    fontSize: 9,
+    color: colors.textMuted,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 2,
-    marginBottom: 22,
+        marginBottom: 22,
   },
 
   warningMark: {
@@ -320,6 +320,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
 
+
   title: {
     color: '#F5F5F2',
     fontSize: 31,
@@ -329,7 +330,7 @@ const styles = StyleSheet.create({
   },
 
   subtitle: {
-    color: '#77736C',
+    color: colors.textMuted,
     fontSize: 13,
     lineHeight: 20,
     marginTop: 12,
@@ -347,12 +348,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 
+
   sectionLabel: {
     color: '#5F5C57',
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 1.6,
-    marginBottom: 17,
+        marginBottom: 17,
   },
 
   deleteRow: {
@@ -375,12 +376,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
+
   rowNumberText: {
-    color: '#77736C',
-    fontSize: 8,
+    color: colors.textMuted,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 0.5,
-  },
+      },
 
   rowCopy: {
     flex: 1,

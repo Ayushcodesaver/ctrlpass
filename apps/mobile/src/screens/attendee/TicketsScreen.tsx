@@ -109,6 +109,21 @@ export default function TicketsScreen() {
     [tickets],
   );
 
+  const renderTicket = useCallback(
+    ({ item, index }: { item: Ticket; index: number }) => (
+      <TicketWalletCard
+        ticket={item}
+        index={index}
+        onPress={() =>
+          navigation.navigate('TicketDetail', {
+            ticketId: item.id,
+          })
+        }
+      />
+    ),
+    [navigation],
+  );
+
   if (loading) {
     return (
       <LoadingSkeleton label="My Passes" />
@@ -227,20 +242,7 @@ export default function TicketsScreen() {
               </View>
             </View>
           }
-          renderItem={({ item, index }) => (
-            <TicketWalletCard
-              ticket={item}
-              index={index}
-              onPress={() =>
-                navigation.navigate(
-                  'TicketDetail',
-                  {
-                    ticketId: item.id,
-                  },
-                )
-              }
-            />
-          )}
+          renderItem={renderTicket}
           ListEmptyComponent={
             <TicketsEmptyState
               filter={filter}
@@ -623,13 +625,14 @@ const s = StyleSheet.create({
     paddingBottom: 23,
   },
 
+
   eyebrow: {
     color: 'rgba(214,180,122,0.68)',
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1.7,
-    marginBottom: 7,
+        marginBottom: 7,
   },
+
 
   title: {
     color: colors.textPrimary,
@@ -666,12 +669,12 @@ const s = StyleSheet.create({
     fontWeight: typography.fontWeight.bold,
   },
 
+
   totalLabel: {
     color: '#55514B',
-    fontSize: 6,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1.2,
-    marginTop: 2,
+        marginTop: 2,
   },
 
   /* ---------------------------------------------------------------
@@ -752,13 +755,14 @@ const s = StyleSheet.create({
     marginBottom: 11,
   },
 
+
   sectionEyebrow: {
     color: '#5C5852',
-    fontSize: 7,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1.45,
-    marginBottom: 3,
+        marginBottom: 3,
   },
+
 
   sectionTitle: {
     color: colors.textPrimary,
@@ -767,12 +771,12 @@ const s = StyleSheet.create({
     letterSpacing: -0.25,
   },
 
+
   resultCount: {
     color: '#55514B',
-    fontSize: 7,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1,
-    paddingBottom: 2,
+        paddingBottom: 2,
   },
 
   /* ---------------------------------------------------------------
@@ -870,26 +874,26 @@ const s = StyleSheet.create({
     backgroundColor: '#66615A',
   },
 
+
   statusText: {
-    fontSize: 7,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1,
-  },
+      },
 
   statusTextActive: {
     color: colors.success,
   },
 
   statusTextPast: {
-    color: '#77736C',
+    color: colors.textMuted,
   },
+
 
   passNumber: {
     color: 'rgba(255,255,255,0.28)',
-    fontSize: 7,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1.2,
-  },
+      },
 
   eventHeroCopy: {
     position: 'absolute',
@@ -897,6 +901,7 @@ const s = StyleSheet.create({
     right: 16,
     bottom: 17,
   },
+
 
   eventName: {
     color: '#F5F5F2',
@@ -923,18 +928,18 @@ const s = StyleSheet.create({
     justifyContent: 'space-between',
   },
 
+
   formatLabel: {
     color: 'rgba(255,255,255,0.18)',
-    fontSize: 6,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 2,
-  },
+      },
+
 
   referenceSmall: {
     color: 'rgba(255,255,255,0.20)',
-    fontSize: 7,
-    letterSpacing: 0.5,
-  },
+    fontSize: 11,
+      },
 
   /* ---------------------------------------------------------------
      TICKET BODY
@@ -949,12 +954,12 @@ const s = StyleSheet.create({
     justifyContent: 'center',
   },
 
+
   infoLabel: {
     color: '#53504A',
-    fontSize: 6,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1.4,
-    marginBottom: 4,
+        marginBottom: 4,
   },
 
   tierName: {
@@ -1122,13 +1127,14 @@ const s = StyleSheet.create({
     width: 29,
   },
 
+
   emptyEyebrow: {
     color: '#625E57',
-    fontSize: 7,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1.6,
-    marginBottom: 8,
+        marginBottom: 8,
   },
+
 
   emptyTitle: {
     color: colors.textPrimary,

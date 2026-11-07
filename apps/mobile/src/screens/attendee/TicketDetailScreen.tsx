@@ -597,14 +597,14 @@ const s = StyleSheet.create({
     alignItems: 'center',
   },
 
+
   headerEyebrow: {
     color:
       'rgba(214,180,122,0.65)',
-    fontSize: 6,
+    fontSize: 11,
     fontWeight:
       typography.fontWeight.bold,
-    letterSpacing: 1.7,
-  },
+      },
 
   headerTitle: {
     color: colors.textPrimary,
@@ -684,13 +684,13 @@ const s = StyleSheet.create({
     backgroundColor: colors.champagne,
   },
 
+
   brandText: {
     color: '#817B72',
-    fontSize: 7,
+    fontSize: 11,
     fontWeight:
       typography.fontWeight.bold,
-    letterSpacing: 1.8,
-  },
+      },
 
   statusPill: {
     height: 25,
@@ -730,12 +730,12 @@ const s = StyleSheet.create({
     backgroundColor: '#77736C',
   },
 
+
   statusText: {
-    fontSize: 7,
+    fontSize: 11,
     fontWeight:
       typography.fontWeight.bold,
-    letterSpacing: 0.9,
-  },
+      },
 
   statusTextValid: {
     color: colors.success,
@@ -755,15 +755,16 @@ const s = StyleSheet.create({
     paddingBottom: 20,
   },
 
+
   eventEyebrow: {
     color:
       'rgba(214,180,122,0.64)',
-    fontSize: 7,
+    fontSize: 11,
     fontWeight:
       typography.fontWeight.bold,
-    letterSpacing: 1.5,
-    marginBottom: 8,
+        marginBottom: 8,
   },
+
 
   eventName: {
     color: colors.textPrimary,
@@ -806,13 +807,13 @@ const s = StyleSheet.create({
     alignItems: 'flex-end',
   },
 
+
   metaLabel: {
     color: '#5C5851',
-    fontSize: 6,
+    fontSize: 11,
     fontWeight:
       typography.fontWeight.bold,
-    letterSpacing: 1.35,
-  },
+      },
 
   metaValue: {
     color: '#D7D4CD',
@@ -892,13 +893,13 @@ const s = StyleSheet.create({
     paddingBottom: 21,
   },
 
+
   scanEyebrow: {
     color: '#69645C',
-    fontSize: 7,
+    fontSize: 11,
     fontWeight:
       typography.fontWeight.bold,
-    letterSpacing: 1.5,
-    marginBottom: 13,
+        marginBottom: 13,
   },
 
   qrFrame: {
@@ -967,13 +968,13 @@ const s = StyleSheet.create({
     flex: 1,
   },
 
+
   venueLabel: {
     color: '#5C5851',
-    fontSize: 6,
+    fontSize: 11,
     fontWeight:
       typography.fontWeight.bold,
-    letterSpacing: 1.35,
-    marginBottom: 4,
+        marginBottom: 4,
   },
 
   venueName: {
@@ -1005,21 +1006,21 @@ const s = StyleSheet.create({
       'rgba(255,255,255,0.065)',
   },
 
+
   referenceLabel: {
     color: '#4F4B45',
-    fontSize: 6,
+    fontSize: 11,
     fontWeight:
       typography.fontWeight.bold,
-    letterSpacing: 1.35,
-  },
+      },
+
 
   referenceValue: {
     color: '#8A857D',
-    fontSize: 9,
+    fontSize: 11,
     fontWeight:
       typography.fontWeight.semibold,
-    letterSpacing: 0.6,
-    marginTop: 4,
+        marginTop: 4,
   },
 
   /* ---------------------------------------------------------------
@@ -1030,15 +1031,16 @@ const s = StyleSheet.create({
     marginTop: 28,
   },
 
+
   sectionEyebrow: {
     color:
       'rgba(214,180,122,0.62)',
-    fontSize: 7,
+    fontSize: 11,
     fontWeight:
       typography.fontWeight.bold,
-    letterSpacing: 1.5,
-    marginBottom: 5,
+        marginBottom: 5,
   },
+
 
   sectionTitle: {
     color: colors.textPrimary,
@@ -1064,15 +1066,15 @@ const s = StyleSheet.create({
     paddingVertical: 15,
   },
 
+
   ruleNumber: {
     width: 28,
     color:
       'rgba(214,180,122,0.45)',
-    fontSize: 7,
+    fontSize: 11,
     fontWeight:
       typography.fontWeight.bold,
-    letterSpacing: 0.8,
-    paddingTop: 2,
+        paddingTop: 2,
   },
 
   ruleCopy: {
@@ -1153,13 +1155,13 @@ const s = StyleSheet.create({
     marginTop: 2,
   },
 
+
   footer: {
     color: '#3F3C38',
-    fontSize: 6,
+    fontSize: 11,
     fontWeight:
       typography.fontWeight.bold,
-    letterSpacing: 1.5,
-    textAlign: 'center',
+        textAlign: 'center',
     marginTop: 25,
   },
 });

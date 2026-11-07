@@ -385,13 +385,14 @@ const styles = StyleSheet.create({
     marginBottom: 34,
   },
 
+
   eyebrow: {
     color: colors.champagne,
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 2,
-    marginBottom: 12,
+        marginBottom: 12,
   },
+
 
   title: {
     color: '#F5F5F2',
@@ -402,7 +403,7 @@ const styles = StyleSheet.create({
   },
 
   description: {
-    color: '#77736C',
+    color: colors.textMuted,
     fontSize: 14,
     lineHeight: 21,
     marginTop: 14,
@@ -487,12 +488,12 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 
+
   fieldLabel: {
-    color: '#77736C',
-    fontSize: 9,
+    color: colors.textMuted,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 1.5,
-    marginBottom: 7,
+        marginBottom: 7,
   },
 
   strengthBlock: {
@@ -581,12 +582,12 @@ const styles = StyleSheet.create({
     borderColor: '#1D1D1D',
   },
 
+
   requirementsTitle: {
     color: '#5F5C57',
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 1.6,
-    marginBottom: 14,
+        marginBottom: 14,
   },
 
   requirement: {

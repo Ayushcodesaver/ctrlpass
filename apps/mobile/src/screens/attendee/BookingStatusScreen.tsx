@@ -714,13 +714,14 @@ const s = StyleSheet.create({
     backgroundColor: colors.champagne,
   },
 
+
   eyebrow: {
     color: 'rgba(214,180,122,0.72)',
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1.7,
-    marginBottom: 8,
+        marginBottom: 8,
   },
+
 
   title: {
     color: colors.textPrimary,
@@ -733,7 +734,7 @@ const s = StyleSheet.create({
 
   subtitle: {
     maxWidth: 350,
-    color: '#77736C',
+    color: colors.textMuted,
     fontSize: 12,
     lineHeight: 18,
     textAlign: 'center',
@@ -756,12 +757,13 @@ const s = StyleSheet.create({
       'rgba(214,180,122,0.16)',
   },
 
+
   referenceLabel: {
     color: '#5F5B55',
-    fontSize: 7,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1.4,
-  },
+      },
+
 
   referenceValue: {
     color: colors.champagne,
@@ -904,12 +906,12 @@ const s = StyleSheet.create({
     marginBottom: 25,
   },
 
+
   sectionEyebrow: {
     color: 'rgba(214,180,122,0.68)',
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1.5,
-    marginBottom: 10,
+        marginBottom: 10,
   },
 
   /* ---------------------------------------------------------------
@@ -943,6 +945,7 @@ const s = StyleSheet.create({
     paddingVertical: 14,
   },
 
+
   eventName: {
     color: colors.textPrimary,
     fontSize: 17,
@@ -952,7 +955,7 @@ const s = StyleSheet.create({
   },
 
   eventTime: {
-    color: '#77736C',
+    color: colors.textMuted,
     fontSize: 9,
     marginTop: 7,
   },
@@ -1005,6 +1008,7 @@ const s = StyleSheet.create({
     justifyContent: 'space-between',
   },
 
+
   totalLabel: {
     color: colors.textPrimary,
     fontSize: 11,
@@ -1017,6 +1021,7 @@ const s = StyleSheet.create({
     fontSize: 8,
     marginTop: 3,
   },
+
 
   totalValue: {
     color: colors.champagne,
@@ -1109,12 +1114,12 @@ const s = StyleSheet.create({
       'rgba(255,255,255,0.07)',
   },
 
+
   footerText: {
     color: '#484540',
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 2,
-  },
+      },
 
   /* ---------------------------------------------------------------
      STICKY ACTIONS

@@ -373,13 +373,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
 
+
   eyebrow: {
     color: colors.champagne,
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 2.2,
-    marginBottom: 7,
+        marginBottom: 7,
   },
+
 
   headerTitle: {
     color: '#F5F5F2',
@@ -418,7 +419,7 @@ const styles = StyleSheet.create({
 
   headerDescription: {
     flex: 1,
-    color: '#77736C',
+    color: colors.textMuted,
     fontSize: 13,
     lineHeight: 19,
   },
@@ -521,7 +522,7 @@ const styles = StyleSheet.create({
   },
 
   notificationMarkText: {
-    color: '#77736C',
+    color: colors.textMuted,
     fontSize: 11,
     fontWeight: '700',
   },
@@ -562,7 +563,7 @@ const styles = StyleSheet.create({
   },
 
   notificationBody: {
-    color: '#77736C',
+    color: colors.textMuted,
     fontSize: 12,
     lineHeight: 18,
     marginTop: 12,
@@ -606,6 +607,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600',
   },
+
 
   emptyTitle: {
     color: '#F5F5F2',

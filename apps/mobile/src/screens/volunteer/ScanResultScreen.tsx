@@ -12,6 +12,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { VolunteerStackParamList } from '../../navigation/types';
 import { formatDateTime } from '../../lib/utils';
 import { scanStatusLabel } from '../../lib/scanStatus';
+import { colors } from '../../theme';
 
 type Props = NativeStackScreenProps<
   VolunteerStackParamList,
@@ -414,12 +415,12 @@ const styles = StyleSheet.create({
     marginHorizontal: 12,
   },
 
+
   topEyebrow: {
     color: '#706C65',
-    fontSize: 7,
+    fontSize: 11,
     fontWeight: '800',
-    letterSpacing: 1.7,
-  },
+      },
 
   topTitle: {
     color: '#EAE7E0',
@@ -472,11 +473,12 @@ const styles = StyleSheet.create({
     fontWeight: '800',
   },
 
+
   resultLabel: {
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: '900',
-    letterSpacing: 2,
-  },
+      },
+
 
   resultTitle: {
     color: '#F5F5F2',
@@ -514,11 +516,11 @@ const styles = StyleSheet.create({
     marginRight: 7,
   },
 
+
   statusPillText: {
-    fontSize: 7,
+    fontSize: 11,
     fontWeight: '800',
-    letterSpacing: 1,
-  },
+      },
 
   /* ───────── Credentials ───────── */
 
@@ -533,12 +535,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 
+
   sectionEyebrow: {
     color: '#6B6760',
-    fontSize: 7,
+    fontSize: 11,
     fontWeight: '800',
-    letterSpacing: 1.7,
-  },
+      },
 
   sectionTitle: {
     color: '#E7E4DD',
@@ -582,12 +584,12 @@ const styles = StyleSheet.create({
     borderBottomColor: '#202020',
   },
 
+
   detailLabel: {
     color: '#69655F',
-    fontSize: 7,
+    fontSize: 11,
     fontWeight: '800',
-    letterSpacing: 1.2,
-    marginBottom: 6,
+        marginBottom: 6,
   },
 
   detailValue: {
@@ -694,7 +696,7 @@ const styles = StyleSheet.create({
   },
 
   secondaryButtonText: {
-    color: '#77736C',
+    color: colors.textMuted,
     fontSize: 11,
     fontWeight: '600',
   },

@@ -40,9 +40,9 @@ const CATEGORIES = [
 function getGreeting(): string {
   const hour = new Date().getHours();
 
-  if (hour < 12) return 'GOOD MORNING';
-  if (hour < 17) return 'GOOD AFTERNOON';
-  return 'GOOD EVENING';
+  if (hour < 12) return 'Good morning';
+  if (hour < 17) return 'Good afternoon';
+  return 'Good evening';
 }
 
 export default function HomeScreen() {
@@ -242,10 +242,6 @@ export default function HomeScreen() {
           <View style={styles.searchResults}>
             <View style={styles.searchHeading}>
               <View>
-                <Text style={styles.searchEyebrow}>
-                  SEARCH
-                </Text>
-
                 <Text style={styles.searchTitle}>
                   {searching
                     ? 'Finding events…'
@@ -364,10 +360,6 @@ export default function HomeScreen() {
 
             <View style={styles.endSpace}>
               <View style={styles.endLine} />
-
-              <Text style={styles.endText}>
-                DISCOVER · BOOK · EXPERIENCE
-              </Text>
             </View>
           </>
         )}
@@ -425,12 +417,10 @@ const styles = StyleSheet.create({
   },
 
   eyebrow: {
-    color: colors.gold,
-    fontSize: 10,
-    lineHeight: 14,
-    letterSpacing: 2,
-    fontWeight: typography.fontWeight.semibold,
-    textTransform: 'uppercase',
+    color: colors.mutedText,
+    fontSize: 13,
+    lineHeight: 18,
+    fontWeight: typography.fontWeight.medium,
     marginBottom: spacing.sm,
   },
 
@@ -495,15 +485,6 @@ const styles = StyleSheet.create({
 
   searchHeading: {
     marginBottom: spacing.lg,
-  },
-
-  searchEyebrow: {
-    color: colors.gold,
-    fontSize: 9,
-    lineHeight: 13,
-    letterSpacing: 1.8,
-    fontWeight: typography.fontWeight.semibold,
-    marginBottom: 4,
   },
 
   searchTitle: {
@@ -629,10 +610,4 @@ const styles = StyleSheet.create({
     marginBottom: spacing.sm,
   },
 
-  endText: {
-    color: colors.mutedText,
-    fontSize: 8,
-    letterSpacing: 2.2,
-    fontWeight: typography.fontWeight.medium,
-  },
 });

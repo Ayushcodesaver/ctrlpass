@@ -17,6 +17,7 @@ import {
   VolunteerInvitation,
 } from '../../services/account';
 import { useAuth } from '../../hooks/useAuth';
+import { colors } from '../../theme';
 
 const STATUS_META: Record<
   VolunteerInvitation['status'],
@@ -47,7 +48,7 @@ const STATUS_META: Record<
   },
   EXPIRED: {
     label: 'EXPIRED',
-    color: '#77736C',
+    color: colors.textMuted,
     background: 'rgba(119,115,108,0.08)',
     border: 'rgba(119,115,108,0.18)',
   },
@@ -594,12 +595,13 @@ const styles = StyleSheet.create({
     marginBottom: 18,
   },
 
+
   eyebrow: {
     color: '#6D6962',
-    fontSize: 7,
+    fontSize: 11,
     fontWeight: '900',
-    letterSpacing: 1.8,
-  },
+      },
+
 
   headerTitle: {
     color: '#F3F0E9',
@@ -652,6 +654,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
+
   avatarText: {
     color: '#17120A',
     fontSize: 20,
@@ -664,6 +667,7 @@ const styles = StyleSheet.create({
     marginLeft: 13,
   },
 
+
   name: {
     color: '#F3F0E9',
     fontSize: 18,
@@ -672,7 +676,7 @@ const styles = StyleSheet.create({
   },
 
   contact: {
-    color: '#77736C',
+    color: colors.textMuted,
     fontSize: 10,
     marginTop: 5,
   },
@@ -689,12 +693,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
 
+
   identityLabel: {
     color: '#5E5A54',
-    fontSize: 6,
+    fontSize: 11,
     fontWeight: '800',
-    letterSpacing: 1.2,
-  },
+      },
 
   identityValue: {
     color: '#AAA69E',
@@ -721,12 +725,12 @@ const styles = StyleSheet.create({
     marginRight: 6,
   },
 
+
   verifiedText: {
     color: '#7FBF9A',
-    fontSize: 6,
+    fontSize: 11,
     fontWeight: '900',
-    letterSpacing: 0.8,
-  },
+      },
 
   /* Overview */
 
@@ -754,12 +758,12 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
 
+
   overviewLabel: {
     color: '#5E5A54',
-    fontSize: 6,
+    fontSize: 11,
     fontWeight: '800',
-    letterSpacing: 1.1,
-    marginTop: 4,
+        marginTop: 4,
   },
 
   overviewDivider: {
@@ -781,12 +785,12 @@ const styles = StyleSheet.create({
     marginBottom: 11,
   },
 
+
   sectionEyebrow: {
     color: '#625E58',
-    fontSize: 7,
+    fontSize: 11,
     fontWeight: '800',
-    letterSpacing: 1.7,
-  },
+      },
 
   sectionTitle: {
     color: '#E7E4DD',
@@ -875,11 +879,11 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
 
+
   statusText: {
-    fontSize: 6,
+    fontSize: 11,
     fontWeight: '900',
-    letterSpacing: 0.8,
-  },
+      },
 
   invitationDivider: {
     height: 1,
@@ -896,12 +900,12 @@ const styles = StyleSheet.create({
     paddingRight: 8,
   },
 
+
   metaLabel: {
     color: '#5E5A54',
-    fontSize: 6,
+    fontSize: 11,
     fontWeight: '800',
-    letterSpacing: 1.1,
-  },
+      },
 
   metaValue: {
     color: '#A7A39B',
@@ -918,12 +922,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
 
+
   dateLabel: {
     color: '#5E5A54',
-    fontSize: 6,
+    fontSize: 11,
     fontWeight: '800',
-    letterSpacing: 1.1,
-  },
+      },
 
   dateValue: {
     color: '#7E7971',
@@ -952,7 +956,7 @@ const styles = StyleSheet.create({
   },
 
   loadingText: {
-    color: '#77736C',
+    color: colors.textMuted,
     fontSize: 10,
   },
 
@@ -1120,12 +1124,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
+
   bottomVersion: {
     color: '#45423D',
-    fontSize: 6,
+    fontSize: 11,
     fontWeight: '800',
-    letterSpacing: 1.2,
-  },
+      },
 
   pressed: {
     opacity: 0.68,

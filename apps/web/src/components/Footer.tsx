@@ -1,10 +1,8 @@
 import Link from 'next/link';
-import { ArrowUpRight, Cpu, Lock, Shield } from 'lucide-react';
 import BrandMark from './BrandMark';
 
 const platformLinks = [
-  { href: '/#features', label: 'Ticketing Engine' },
-  { href: '/#access-control', label: 'Access Control' },
+  { href: '/#discover', label: 'Discover Events' },
   { href: '/organizer/dashboard', label: 'Organizer Suite' },
   { href: '/admin/dashboard', label: 'Compliance & Review' },
 ];
@@ -23,44 +21,79 @@ const accessLinks = [
   { href: '/forgot-password', label: 'Account Recovery' },
 ];
 
+/* Library photographs used by the pages of this site (imagery.md § 2).
+   Each credit: author, licence, link. CC BY / CC BY-SA require it. */
+const photoCredits = [
+  {
+    author: 'PinkBeachPlanet',
+    licence: 'CC BY-SA 4.0',
+    href: 'https://commons.wikimedia.org/wiki/File:Beach-Please-2022-crowd-stage-lights-night-performance.jpg',
+  },
+  {
+    author: 'Ian T. McFarland',
+    licence: 'CC BY-SA 2.0',
+    href: 'https://commons.wikimedia.org/wiki/File:Lights_(2011-04-24_by_Ian_T._McFarland).jpg',
+  },
+  {
+    author: '北京驱动文化传媒有限公司',
+    licence: 'CC BY-SA 3.0',
+    href: 'https://commons.wikimedia.org/wiki/File:Tianjin_Grand_Theater_Concert_Hall.jpg',
+  },
+];
+
 export default function Footer() {
   return (
-    <footer className="mt-24 border-t border-white/[0.07] bg-[#050505]">
-      <div className="mx-auto max-w-[1440px] px-5 py-16 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
-          <div className="lg:pr-8">
+    <footer className="mt-24 border-t border-[color:var(--color-rule)] bg-[color:var(--color-paper)]">
+      <div className="mx-auto w-full max-w-[1360px] px-5 py-16 sm:px-8 lg:px-12 lg:py-20">
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,2fr)]">
+          {/* the letter */}
+          <div>
             <BrandMark size={36} compact />
 
-            <p className="mt-5 max-w-sm text-sm leading-6 text-[#77736C]">
-              A modern event platform for discovering experiences, managing
-              ticketing, and operating events with clarity.
+            <p className="mt-6 max-w-[46ch] font-display text-xl leading-[1.45] text-[color:var(--color-ink-2)] sm:text-2xl">
+              One platform for the whole night: find the event, hold the
+              ticket, walk through the gate.
             </p>
 
-            <div className="mt-6 flex flex-wrap gap-2">
-              <TrustBadge icon={Shield} label="Secure Access" />
-              <TrustBadge icon={Lock} label="Protected Data" />
-              <TrustBadge icon={Cpu} label="Live Operations" />
-            </div>
+            <p className="mt-4 max-w-[52ch] text-sm leading-[1.6] text-[color:var(--color-muted)]">
+              CtrlPass carries discovery, ticketing and gate access for
+              organizers across India, from the first listing to the last
+              scan at the door.
+            </p>
           </div>
 
-          <FooterColumn title="Platform" links={platformLinks} />
-          <FooterColumn title="Dashboards" links={dashboardLinks} />
-          <FooterColumn title="Access" links={accessLinks} />
+          <div className="grid gap-10 sm:grid-cols-3">
+            <FooterColumn title="Platform" links={platformLinks} />
+            <FooterColumn title="Dashboards" links={dashboardLinks} />
+            <FooterColumn title="Access" links={accessLinks} />
+          </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-5 border-t border-white/[0.06] pt-7 text-xs text-[#77736C] sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            © {new Date().getFullYear()} CtrlPass Technologies India Pvt Ltd.
-            All rights reserved.
-          </p>
+        <div
+          data-credits
+          className="mt-14 text-xs leading-[1.6] text-[color:var(--color-muted)]"
+        >
+          Photographs:{' '}
+          {photoCredits.map((credit, index) => (
+            <span key={credit.href}>
+              <a
+                href={credit.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-[color:var(--color-rule)] underline-offset-2 transition-colors hover:text-[color:var(--color-ink-2)]"
+              >
+                {credit.author}
+              </a>{' '}
+              ({credit.licence})
+              {index < photoCredits.length - 1 ? ', ' : ''}
+            </span>
+          ))}{' '}
+          (Wikimedia Commons).
+        </div>
 
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <span>Built for modern events</span>
-            <span className="hidden h-1 w-1 rounded-full bg-[#77736C] sm:block" />
-            <span>India-first ticketing</span>
-            <span className="hidden h-1 w-1 rounded-full bg-[#77736C] sm:block" />
-            <span>Made with precision</span>
-          </div>
+        <div className="mt-6 border-t border-[color:var(--color-rule)] pt-6 text-xs text-[color:var(--color-muted)]">
+          © {new Date().getFullYear()} CtrlPass Technologies India Pvt Ltd.
+          All rights reserved.
         </div>
       </div>
     </footer>
@@ -76,38 +109,20 @@ function FooterColumn({
 }) {
   return (
     <div>
-      <h4 className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-[#D6B47A]">
-        {title}
-      </h4>
+      <h4 className="text-sm font-medium text-[color:var(--color-ink)]">{title}</h4>
 
-      <ul className="mt-5 space-y-3">
+      <ul className="mt-4 space-y-2.5">
         {links.map((link) => (
           <li key={link.href}>
             <Link
               href={link.href}
-              className="group inline-flex items-center gap-1.5 text-sm text-[#A7A39B] transition-colors hover:text-[#F5F5F2]"
+              className="text-sm text-[color:var(--color-muted)] transition-colors hover:text-[color:var(--color-ink)]"
             >
               {link.label}
-              <ArrowUpRight className="h-3 w-3 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-60" />
             </Link>
           </li>
         ))}
       </ul>
     </div>
-  );
-}
-
-function TrustBadge({
-  icon: Icon,
-  label,
-}: {
-  icon: typeof Shield;
-  label: string;
-}) {
-  return (
-    <span className="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.07] bg-[#0B0B0B] px-2.5 py-1.5 font-mono text-[9px] uppercase tracking-wider text-[#77736C]">
-      <Icon className="h-3 w-3 text-[#D6B47A]" />
-      {label}
-    </span>
   );
 }

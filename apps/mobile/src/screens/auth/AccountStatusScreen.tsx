@@ -168,13 +168,14 @@ const styles = StyleSheet.create({
 
   /* Header */
 
+
   eyebrow: {
     color: '#68645E',
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 1.9,
-    marginBottom: 12,
+        marginBottom: 12,
   },
+
 
   title: {
     color: '#F5F5F2',

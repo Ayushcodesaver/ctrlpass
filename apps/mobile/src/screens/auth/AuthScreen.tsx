@@ -23,6 +23,7 @@ import * as Linking from 'expo-linking';
 import { useClerk, useOAuth, useSignIn, useSignUp } from '@clerk/expo';
 
 import { Field } from '../../components';
+import { colors } from '../../theme';
 
 type AuthStep = 'phone' | 'otp' | 'email' | 'emailCode' | 'resetCode';
 
@@ -1103,12 +1104,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
+
   markText: {
     color: '#090909',
     fontSize: 16,
     fontWeight: '800',
     letterSpacing: -1,
   },
+
 
   brand: {
     color: '#F3F1EC',
@@ -1117,12 +1120,12 @@ const styles = StyleSheet.create({
     letterSpacing: 2.6,
   },
 
+
   brandSub: {
     color: '#66625C',
-    fontSize: 7,
+    fontSize: 11,
     fontWeight: '600',
-    letterSpacing: 1.4,
-    marginTop: 4,
+        marginTop: 4,
   },
 
   /* ───────── Form ───────── */
@@ -1131,13 +1134,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
+
   kicker: {
     color: '#9E7B48',
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 2,
-    marginBottom: 13,
+        marginBottom: 13,
   },
+
 
   title: {
     color: '#F5F5F2',
@@ -1187,6 +1191,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '600',
   },
+
 
   phoneInput: {
     flex: 1,
@@ -1266,12 +1271,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#20201E',
   },
 
+
   dividerText: {
     color: '#57544F',
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: '600',
-    letterSpacing: 1.5,
-    marginHorizontal: 13,
+        marginHorizontal: 13,
   },
 
   /* ───────── OTP ───────── */
@@ -1353,7 +1358,7 @@ const styles = StyleSheet.create({
   },
 
   linkText: {
-    color: '#77736C',
+    color: colors.textMuted,
     fontSize: 11,
   },
 
@@ -1387,12 +1392,12 @@ const styles = StyleSheet.create({
     color: '#716B62',
   },
 
+
   footerBrand: {
     color: '#363430',
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: '600',
-    letterSpacing: 1.6,
-    textAlign: 'center',
+        textAlign: 'center',
     marginTop: 12,
   },
 });

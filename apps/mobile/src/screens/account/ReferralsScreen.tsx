@@ -374,13 +374,14 @@ const styles = StyleSheet.create({
     marginBottom: 27,
   },
 
+
   eyebrow: {
     color: colors.champagne,
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 2,
-    marginBottom: 11,
+        marginBottom: 11,
   },
+
 
   title: {
     color: '#F5F5F2',
@@ -391,7 +392,7 @@ const styles = StyleSheet.create({
   },
 
   subtitle: {
-    color: '#77736C',
+    color: colors.textMuted,
     fontSize: 13,
     lineHeight: 20,
     marginTop: 12,
@@ -415,13 +416,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
 
+
   codeEyebrow: {
     color: '#68645E',
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 1.7,
-    marginBottom: 8,
+        marginBottom: 8,
   },
+
 
   code: {
     color: '#F2EFE8',
@@ -442,12 +444,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
+
   codeBadgeText: {
     color: colors.champagne,
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: '800',
-    letterSpacing: 0.7,
-  },
+      },
 
   codeDivider: {
     height: 1,
@@ -505,12 +507,12 @@ const styles = StyleSheet.create({
     marginBottom: 11,
   },
 
+
   sectionLabel: {
     color: '#5F5C57',
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 1.6,
-  },
+      },
 
   /* Stats */
 
@@ -535,6 +537,7 @@ const styles = StyleSheet.create({
     height: 47,
     backgroundColor: '#292929',
   },
+
 
   statValue: {
     color: '#D8D5CE',

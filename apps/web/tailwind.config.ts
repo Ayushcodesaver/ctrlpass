@@ -33,11 +33,6 @@ const config: Config = {
         ring: '#FFFFFF',
         destructive: '#F97066',
         'destructive-foreground': '#FFFFFF',
-        base: {
-          DEFAULT: '#000000',
-          surface: '#141414',
-          subtle: '#1F1F1F',
-        },
         fg: {
           DEFAULT: '#FFFFFF',
           muted: '#A3A3A3',
@@ -86,8 +81,8 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        display: ['Space Grotesk', 'Inter', 'system-ui', 'sans-serif'],
+        sans: ['Geist', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['Boska', 'Iowan Old Style', 'Georgia', 'serif'],
       },
       boxShadow: {
         warm: '0 10px 30px -10px rgba(0, 0, 0, 0.8)',

@@ -731,13 +731,14 @@ const styles = StyleSheet.create({
     marginBottom: 34,
   },
 
+
   headerEyebrow: {
     color: colors.champagne,
-    fontSize: 10,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 2.4,
-    marginBottom: 5,
+        marginBottom: 5,
   },
+
 
   headerTitle: {
     color: colors.textPrimary,
@@ -758,12 +759,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
+
   headerMarkText: {
     color: colors.champagne,
-    fontSize: 10,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 0.8,
-  },
+      },
 
   /* Identity */
 
@@ -797,6 +798,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
+
   avatarInitials: {
     color: colors.champagne,
     fontSize: 31,
@@ -815,6 +817,7 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderColor: colors.ink,
   },
+
 
   name: {
     color: colors.textPrimary,
@@ -865,12 +868,12 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
 
+
   inputLabel: {
     color: colors.textMuted,
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1.6,
-    marginBottom: 7,
+        marginBottom: 7,
   },
 
   cityLabel: {
@@ -962,13 +965,14 @@ const styles = StyleSheet.create({
     paddingRight: 14,
   },
 
+
   volunteerEyebrow: {
     color: colors.champagne,
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1.6,
-    marginBottom: 7,
+        marginBottom: 7,
   },
+
 
   volunteerTitle: {
     color: colors.textPrimary,
@@ -999,12 +1003,12 @@ const styles = StyleSheet.create({
     marginBottom: 35,
   },
 
+
   sectionTitle: {
     color: colors.textMuted,
-    fontSize: 10,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1.8,
-    marginBottom: 12,
+        marginBottom: 12,
     textTransform: 'uppercase',
   },
 
@@ -1129,12 +1133,12 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
 
+
   footerBrand: {
     color: '#5C5C5C',
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 2,
-  },
+      },
 
   footerVersion: {
     color: '#414141',

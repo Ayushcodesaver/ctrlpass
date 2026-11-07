@@ -630,6 +630,7 @@ const s = StyleSheet.create({
     ],
   },
 
+
   heroFallbackMark: {
     color: 'rgba(214,180,122,0.55)',
     fontSize: 48,
@@ -668,12 +669,12 @@ const s = StyleSheet.create({
     backgroundColor: colors.champagne,
   },
 
+
   heroMetaText: {
     color: '#F4F1EA',
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1.5,
-  },
+      },
 
   /* ---------------------------------------------------------------
      CONTENT
@@ -690,6 +691,7 @@ const s = StyleSheet.create({
     gap: 7,
     marginBottom: spacing.md,
   },
+
 
   title: {
     color: colors.textPrimary,
@@ -733,15 +735,15 @@ const s = StyleSheet.create({
     borderTopColor: 'rgba(255,255,255,0.075)',
   },
 
+
   infoEyebrow: {
     width: 48,
     marginTop: 3,
-    color: 'rgba(214,180,122,0.72)',
-    fontSize: 9,
-    lineHeight: 12,
+    color: colors.goldSoft,
+    fontSize: 11,
+    lineHeight: 16,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1.4,
-  },
+      },
 
   infoCopy: {
     flex: 1,
@@ -817,13 +819,14 @@ const s = StyleSheet.create({
     marginBottom: 14,
   },
 
+
   sectionEyebrow: {
-    color: 'rgba(214,180,122,0.70)',
-    fontSize: 9,
+    color: colors.goldSoft,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1.6,
-    marginBottom: 5,
+        marginBottom: 5,
   },
+
 
   sectionTitle: {
     color: colors.textPrimary,
@@ -1002,12 +1005,12 @@ const s = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.09)',
   },
 
+
   endText: {
     color: '#57544F',
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 2,
-  },
+      },
 
   /* ---------------------------------------------------------------
      TOP CONTROLS
@@ -1056,12 +1059,12 @@ const s = StyleSheet.create({
     minWidth: 0,
   },
 
+
   purchaseEyebrow: {
-    color: '#77736C',
-    fontSize: 8,
+    color: colors.textMuted,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1.4,
-    marginBottom: 3,
+        marginBottom: 3,
   },
 
   purchasePrice: {

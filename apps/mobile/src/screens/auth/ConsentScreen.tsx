@@ -12,6 +12,7 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { accountService, CONSENT_DOCS } from '../../services/account';
 import { useAuth } from '../../hooks/useAuth';
+import { colors } from '../../theme';
 
 const COLLECTED = [
   [
@@ -360,13 +361,14 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
 
+
   kicker: {
     color: '#9E7B48',
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 2,
-    marginBottom: 12,
+        marginBottom: 12,
   },
+
 
   title: {
     color: '#F5F5F2',
@@ -390,13 +392,14 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
 
+
   sectionEyebrow: {
     color: '#66625C',
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 1.8,
-    marginBottom: 7,
+        marginBottom: 7,
   },
+
 
   sectionTitle: {
     color: '#D8D5CE',
@@ -428,13 +431,13 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0,
   },
 
+
   dataNumber: {
     width: 29,
     color: '#8D7045',
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 0.5,
-    paddingTop: 2,
+        paddingTop: 2,
   },
 
   dataCopy: {
@@ -481,12 +484,13 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(127,191,154,0.18)',
   },
 
+
   controlPillText: {
     color: '#7FBF9A',
-    fontSize: 7,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 1.1,
-  },
+      },
+
 
   principleTitle: {
     color: '#E5E2DC',
@@ -557,7 +561,7 @@ const styles = StyleSheet.create({
   },
 
   agreementText: {
-    color: '#77736C',
+    color: colors.textMuted,
     fontSize: 10,
     lineHeight: 16,
   },

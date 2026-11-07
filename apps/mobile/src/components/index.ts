@@ -3,6 +3,8 @@ export * from './Button';
 export * from './cinema';
 export * from './Field';
 export * from './icons';
+export { default as LogoDraw } from './LogoDraw';
+export { default as LogoSplash } from './LogoSplash';
 export * from './QrCode';
 export * from './Screen';
 export * from './States';

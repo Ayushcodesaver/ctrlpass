@@ -691,6 +691,7 @@ const s = StyleSheet.create({
     paddingBottom: spacing.lg,
   },
 
+
   eventName: {
     color: colors.textPrimary,
     fontSize: 29,
@@ -798,13 +799,14 @@ const s = StyleSheet.create({
     marginBottom: spacing.md,
   },
 
+
   sectionEyebrow: {
     color: 'rgba(214,180,122,0.68)',
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1.6,
-    marginBottom: 5,
+        marginBottom: 5,
   },
+
 
   sectionTitle: {
     color: colors.textPrimary,
@@ -997,7 +999,7 @@ const s = StyleSheet.create({
   },
 
   availability: {
-    color: '#77736C',
+    color: colors.textMuted,
     fontSize: 10,
   },
 
@@ -1033,7 +1035,7 @@ const s = StyleSheet.create({
   },
 
   emptyText: {
-    color: '#77736C',
+    color: colors.textMuted,
     fontSize: 12,
     lineHeight: 18,
     marginTop: 6,
@@ -1092,12 +1094,12 @@ const s = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.08)',
   },
 
+
   footerText: {
     color: '#4F4C47',
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 2,
-  },
+      },
 
   /* ---------------------------------------------------------------
      STICKY BAR
@@ -1126,12 +1128,13 @@ const s = StyleSheet.create({
     minWidth: 0,
   },
 
+
   totalLabel: {
     color: '#6D6963',
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1.3,
-  },
+      },
+
 
   totalValue: {
     color: colors.textPrimary,

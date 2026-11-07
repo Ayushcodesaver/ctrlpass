@@ -2,8 +2,10 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-import { ImageOff } from 'lucide-react';
-import { brandAssets } from '@/lib/brand';
+
+/* Library fallback (Wikimedia Commons, Ian T. McFarland, CC BY-SA 2.0),
+   credited in the footer. */
+const EVENT_FALLBACK = '/photos/lights-2011-04-24-by-ian-t-mcfarland-1920.jpg';
 
 type EventImageProps = {
   src?: string | null;
@@ -23,21 +25,21 @@ export default function EventImage({
   const [failed, setFailed] = useState(false);
 
   const imageSrc =
-    src && !failed ? src : brandAssets.eventPlaceholder;
+    src && !failed ? src : EVENT_FALLBACK;
 
   const usingFallback = !src || failed;
 
   return (
     <div
-      className={`relative overflow-hidden bg-[#111111] ${aspectClassName} ${className}`}
+      className={`relative overflow-hidden bg-[color:var(--color-paper-3)] ${aspectClassName} ${className}`}
     >
       <Image
         src={imageSrc}
-        alt={alt}
+        alt={usingFallback ? '' : alt}
         fill
         priority={priority}
         sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-        className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+        className="object-cover"
         onError={() => {
           if (!usingFallback) {
             setFailed(true);
@@ -45,15 +47,7 @@ export default function EventImage({
         }}
       />
 
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
-
-      {usingFallback && (
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.08] bg-black/30 backdrop-blur-sm">
-            <ImageOff className="h-4 w-4 text-[#77736C]" />
-          </div>
-        </div>
-      )}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[color:var(--color-paper)]/25 via-transparent to-transparent" />
     </div>
   );
 }

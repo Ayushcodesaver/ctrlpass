@@ -330,13 +330,14 @@ const styles = StyleSheet.create({
     marginBottom: 27,
   },
 
+
   eyebrow: {
     color: colors.champagne,
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 2,
-    marginBottom: 11,
+        marginBottom: 11,
   },
+
 
   title: {
     color: '#F5F5F2',
@@ -347,7 +348,7 @@ const styles = StyleSheet.create({
   },
 
   subtitle: {
-    color: '#77736C',
+    color: colors.textMuted,
     fontSize: 13,
     lineHeight: 20,
     marginTop: 13,
@@ -409,12 +410,12 @@ const styles = StyleSheet.create({
     marginBottom: 11,
   },
 
+
   sectionLabel: {
     color: '#5F5C57',
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 1.6,
-  },
+      },
 
   /* Preferences */
 
@@ -446,17 +447,18 @@ const styles = StyleSheet.create({
     paddingRight: 16,
   },
 
+
   preferenceEyebrow: {
     color: '#55524D',
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 1.5,
-    marginBottom: 6,
+        marginBottom: 6,
   },
 
   preferenceEyebrowEnabled: {
     color: colors.champagne,
   },
+
 
   preferenceTitle: {
     color: '#E4E1DA',

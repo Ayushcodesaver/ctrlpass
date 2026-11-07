@@ -3,15 +3,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { UserButton, useUser } from '@clerk/nextjs';
-import {
-  ArrowRight,
-  CalendarDays,
-  Compass,
-  LayoutDashboard,
-  Menu,
-  ShieldCheck,
-  X,
-} from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import AnimatedIcon from './ui/AnimatedIcon';
 
 import BrandMark from './BrandMark';
 
@@ -23,24 +16,21 @@ const navigation = [
   {
     href: '/#discover',
     label: 'Discover Events',
-    icon: Compass,
   },
   {
     href: '/organizer/events/new',
     label: 'Host an Event',
-    icon: CalendarDays,
   },
   {
     href: '/organizer/dashboard',
     label: 'Organizer Hub',
-    icon: LayoutDashboard,
   },
 ];
 
 /*
  * Clerk session display — mounted only when Clerk is configured.
  * Signed in: real name + avatar with a sign-out menu.
- * Signed out: the same Sign In / Get Started actions as before.
+ * Signed out: the same Sign In / Sign up actions as before.
  */
 function ClerkSessionArea({
   onNavigate,
@@ -63,8 +53,8 @@ function ClerkSessionArea({
           onClick={onNavigate}
           className={
             mobile
-              ? 'flex items-center justify-center rounded-xl border border-white/[0.08] bg-[#111111] px-4 py-3 text-xs font-semibold text-[#A7A39B] transition hover:border-white/[0.14] hover:text-[#F5F5F2]'
-              : 'rounded-lg px-3 py-2 text-xs font-medium text-[#A7A39B] transition-colors hover:text-[#F5F5F2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D6B47A]/50'
+              ? 'flex items-center justify-center rounded-[var(--radius-well)] px-4 py-3 text-sm font-medium text-[color:var(--color-ink-2)] transition-colors hover:text-[color:var(--color-ink)]'
+              : 'whitespace-nowrap rounded-[var(--radius-well)] px-3 py-2 text-sm font-medium text-[color:var(--color-ink-2)] transition-colors hover:text-[color:var(--color-ink)]'
           }
         >
           Sign In
@@ -75,19 +65,11 @@ function ClerkSessionArea({
           onClick={onNavigate}
           className={
             mobile
-              ? 'flex items-center justify-center gap-2 rounded-xl bg-[#D6B47A] px-4 py-3 text-xs font-semibold text-[#050505] transition hover:bg-[#E0C38E]'
-              : 'group inline-flex items-center gap-2 rounded-xl bg-[#D6B47A] px-4 py-2.5 text-xs font-semibold text-[#050505] transition-all hover:bg-[#E0C38E] hover:shadow-lg hover:shadow-[#D6B47A]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D6B47A]/60'
+              ? 'btn-primary min-h-[46px] w-full'
+              : 'btn-primary min-h-[44px] px-5 text-sm'
           }
         >
-          Get Started
-
-          <ArrowRight
-            className={
-              mobile
-                ? 'h-3.5 w-3.5'
-                : 'h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5'
-            }
-          />
+          Sign up
         </Link>
       </>
     );
@@ -100,15 +82,15 @@ function ClerkSessionArea({
     <div
       className={
         mobile
-          ? 'flex items-center justify-between gap-3 rounded-xl border border-white/[0.08] bg-[#111111] px-4 py-3'
-          : 'flex items-center gap-3 rounded-xl border border-white/[0.08] bg-[#111111] py-1.5 pl-4 pr-1.5'
+          ? 'well flex items-center justify-between gap-3 px-4 py-3'
+          : 'well flex items-center gap-3 py-1.5 pl-4 pr-1.5'
       }
     >
       <span
         className={
           mobile
-            ? 'truncate text-xs font-medium text-[#F5F5F2]'
-            : 'max-w-[160px] truncate text-xs font-medium text-[#F5F5F2]'
+            ? 'truncate text-sm font-medium text-[color:var(--color-ink)]'
+            : 'max-w-[160px] truncate text-sm font-medium text-[color:var(--color-ink)]'
         }
       >
         {displayName}
@@ -127,8 +109,8 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/[0.07] bg-[#050505]/95 backdrop-blur-xl">
-      <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-5 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-50 border-b border-[color:var(--color-rule)] bg-[color-mix(in_oklab,var(--color-paper)_88%,transparent)] backdrop-blur-md">
+      <div className="mx-auto flex h-[72px] w-full max-w-[1360px] items-center justify-between px-5 sm:px-8 lg:px-12">
         <BrandMark />
 
         {/* Desktop navigation */}
@@ -140,19 +122,12 @@ export default function Navbar() {
             <Link
               key={href}
               href={href}
-              className="rounded-lg px-3 py-2 text-xs font-medium text-[#A7A39B] transition-colors hover:bg-white/[0.035] hover:text-[#F5F5F2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D6B47A]/50"
+              className="whitespace-nowrap rounded-[var(--radius-well)] px-3 py-2 text-sm font-medium text-[color:var(--color-ink-2)] transition-colors hover:text-[color:var(--color-ink)]"
             >
               {label}
             </Link>
           ))}
 
-          <Link
-            href="/admin/dashboard"
-            className="ml-1 inline-flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium text-[#D6B47A] transition-colors hover:bg-[#D6B47A]/[0.06] hover:text-[#E0C38E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D6B47A]/50"
-          >
-            <ShieldCheck className="h-3.5 w-3.5" />
-            Admin
-          </Link>
         </nav>
 
         {/* Desktop actions */}
@@ -163,18 +138,13 @@ export default function Navbar() {
             <>
               <Link
                 href="/login"
-                className="rounded-lg px-3 py-2 text-xs font-medium text-[#A7A39B] transition-colors hover:text-[#F5F5F2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D6B47A]/50"
+                className="whitespace-nowrap rounded-[var(--radius-well)] px-3 py-2 text-sm font-medium text-[color:var(--color-ink-2)] transition-colors hover:text-[color:var(--color-ink)]"
               >
                 Sign In
               </Link>
 
-              <Link
-                href="/signup"
-                className="group inline-flex items-center gap-2 rounded-xl bg-[#D6B47A] px-4 py-2.5 text-xs font-semibold text-[#050505] transition-all hover:bg-[#E0C38E] hover:shadow-lg hover:shadow-[#D6B47A]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D6B47A]/60"
-              >
-                Get Started
-
-                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+              <Link href="/signup" className="btn-primary min-h-[44px] px-5 text-sm">
+                Sign up
               </Link>
             </>
           )}
@@ -189,34 +159,33 @@ export default function Navbar() {
           aria-label={
             mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'
           }
-          className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.08] bg-[#111111] text-[#A7A39B] transition hover:border-[#D6B47A]/25 hover:text-[#F5F5F2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D6B47A]/50 md:hidden"
+          className="well flex h-11 w-11 items-center justify-center text-[color:var(--color-ink-2)] transition-colors hover:text-[color:var(--color-ink)] md:hidden"
         >
           {mobileMenuOpen ? (
-            <X className="h-5 w-5" />
+            <AnimatedIcon key="open" icon={X} animation="spin" play="always" size={20} />
           ) : (
-            <Menu className="h-5 w-5" />
+            <AnimatedIcon key="closed" icon={Menu} animation="spin" play="always" size={20} />
           )}
         </button>
       </div>
 
-      {/* Mobile navigation */}
+      {/* Mobile navigation — the retracting bar */}
       {mobileMenuOpen && (
         <div
           id="mobile-navigation"
-          className="border-t border-white/[0.06] bg-[#080808] px-5 pb-5 pt-4 md:hidden"
+          className="border-t border-[color:var(--color-rule)] bg-[color:var(--color-paper-2)] px-5 pb-5 pt-4 md:hidden"
         >
           <nav
             className="space-y-1"
             aria-label="Mobile navigation"
           >
-            {navigation.map(({ href, label, icon: Icon }) => (
+            {navigation.map(({ href, label }) => (
               <Link
                 key={href}
                 href={href}
                 onClick={closeMobileMenu}
-                className="flex items-center gap-3 rounded-xl px-3.5 py-3 text-sm font-medium text-[#A7A39B] transition-colors hover:bg-white/[0.035] hover:text-[#F5F5F2]"
+                className="flex items-center rounded-[var(--radius-well)] px-3 py-3 text-base font-medium text-[color:var(--color-ink-2)] transition-colors hover:text-[color:var(--color-ink)]"
               >
-                <Icon className="h-4 w-4 text-[#D6B47A]" />
                 {label}
               </Link>
             ))}
@@ -224,14 +193,13 @@ export default function Navbar() {
             <Link
               href="/admin/dashboard"
               onClick={closeMobileMenu}
-              className="flex items-center gap-3 rounded-xl px-3.5 py-3 text-sm font-medium text-[#D6B47A] transition-colors hover:bg-[#D6B47A]/[0.06]"
+              className="flex items-center rounded-[var(--radius-well)] px-3 py-3 text-base font-medium text-[color:var(--color-ink-2)]"
             >
-              <ShieldCheck className="h-4 w-4" />
               Admin Console
             </Link>
           </nav>
 
-          <div className="mt-4 grid gap-2 border-t border-white/[0.06] pt-4 sm:grid-cols-2">
+          <div className="mt-4 grid gap-2 border-t border-[color:var(--color-rule)] pt-4 sm:grid-cols-2">
             {clerkEnabled ? (
               <div className="grid grid-cols-1 gap-2 sm:col-span-2 sm:grid-cols-2">
                 <ClerkSessionArea mobile onNavigate={closeMobileMenu} />
@@ -241,7 +209,7 @@ export default function Navbar() {
                 <Link
                   href="/login"
                   onClick={closeMobileMenu}
-                  className="flex items-center justify-center rounded-xl border border-white/[0.08] bg-[#111111] px-4 py-3 text-xs font-semibold text-[#A7A39B] transition hover:border-white/[0.14] hover:text-[#F5F5F2]"
+                  className="btn-ghost min-h-[46px] w-full"
                 >
                   Sign In
                 </Link>
@@ -249,10 +217,9 @@ export default function Navbar() {
                 <Link
                   href="/signup"
                   onClick={closeMobileMenu}
-                  className="flex items-center justify-center gap-2 rounded-xl bg-[#D6B47A] px-4 py-3 text-xs font-semibold text-[#050505] transition hover:bg-[#E0C38E]"
+                  className="btn-primary min-h-[46px] w-full"
                 >
-                  Get Started
-                  <ArrowRight className="h-3.5 w-3.5" />
+                  Sign up
                 </Link>
               </>
             )}

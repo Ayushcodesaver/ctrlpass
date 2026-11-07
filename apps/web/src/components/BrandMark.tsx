@@ -18,13 +18,13 @@ export default function BrandMark({
   size = 40,
   showWordmark = true,
   compact = false,
-  accentClassName = 'text-[#D6B47A]',
+  accentClassName = 'text-[color:var(--color-accent)]',
   variant = 'mark',
 }: BrandMarkProps) {
   const mark = (
     <span className="group flex items-center gap-3">
       <span
-        className="relative shrink-0 overflow-hidden rounded-xl border border-white/[0.08] bg-[#111111]"
+        className="relative shrink-0 overflow-hidden rounded-xl border border-[color:var(--color-rule)] bg-[color:var(--color-paper-2)]"
         style={{ width: size, height: size }}
       >
         <Image
@@ -39,16 +39,10 @@ export default function BrandMark({
 
       {showWordmark && (
         <span className="min-w-0">
-          <span className="block font-display text-2xl font-extrabold leading-none tracking-[-0.04em] text-[#F5F5F2]">
+          <span className="block font-display text-2xl font-medium leading-none tracking-[-0.04em] text-[color:var(--color-ink)]">
             CTRL
             <span className={accentClassName}>PASS</span>
           </span>
-
-          {!compact && (
-            <span className="mt-1 block font-mono text-[9px] font-medium uppercase tracking-[0.16em] text-[#77736C]">
-              Discover · Book · Experience
-            </span>
-          )}
         </span>
       )}
     </span>
@@ -62,7 +56,7 @@ export default function BrandMark({
     <Link
       href={href}
       aria-label="CtrlPass home"
-      className="rounded-xl p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D6B47A]/50"
+      className="rounded-xl p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-focus)]"
     >
       {mark}
     </Link>

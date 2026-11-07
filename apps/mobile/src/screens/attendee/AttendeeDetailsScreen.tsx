@@ -593,12 +593,13 @@ const s = StyleSheet.create({
     fontWeight: typography.fontWeight.bold,
   },
 
+
   stepLabel: {
     color: 'rgba(214,180,122,0.72)',
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1.6,
-  },
+      },
+
 
   title: {
     color: colors.textPrimary,
@@ -631,13 +632,14 @@ const s = StyleSheet.create({
     marginBottom: 12,
   },
 
+
   sectionEyebrow: {
     color: 'rgba(214,180,122,0.68)',
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1.55,
-    marginBottom: 5,
+        marginBottom: 5,
   },
+
 
   sectionTitle: {
     color: colors.textPrimary,
@@ -670,12 +672,12 @@ const s = StyleSheet.create({
     paddingVertical: 14,
   },
 
+
   fieldLabel: {
-    color: '#77736C',
-    fontSize: 8,
+    color: colors.textMuted,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1.25,
-    marginBottom: 7,
+        marginBottom: 7,
   },
 
   inputShell: {
@@ -826,12 +828,12 @@ const s = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.07)',
   },
 
+
   footerText: {
     color: '#484540',
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 2,
-  },
+      },
 
   /* ---------------------------------------------------------------
      STICKY CTA
@@ -860,12 +862,12 @@ const s = StyleSheet.create({
     minWidth: 0,
   },
 
+
   bottomEyebrow: {
     color: '#5E5A54',
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1.2,
-  },
+      },
 
   bottomTitle: {
     color: colors.textPrimary,

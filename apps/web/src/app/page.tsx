@@ -9,8 +9,7 @@ import ConfigNotice from '@/components/ConfigNotice';
 import { isSupabaseConfigured } from '@/lib/supabase';
 import { eventService } from '@/services/events';
 import { Event } from '@ctrlpass/types';
-import { brandAssets } from '@/lib/brand';
-import EventCard, {
+import {
   formatEventDate,
   getLowestPriceFormatted,
 } from '@/components/ui/EventCard';
@@ -18,27 +17,8 @@ import EventImage from '@/components/EventImage';
 import { LoadingState, ErrorState } from '@/components/ui/LoadingState';
 import { userFacingError } from '@/lib/userFacingError';
 import { normalizeCity } from '@/lib/city';
-import {
-  Search,
-  ArrowRight,
-  ArrowUpRight,
-  Ticket,
-  ShieldCheck,
-  Zap,
-  MapPin,
-  CalendarDays,
-  Music,
-  MoonStar,
-  Sparkles,
-  Cpu,
-  Trophy,
-  Laugh,
-  Palette,
-  UtensilsCrossed,
-  Users,
-  ChevronRight,
-  type LucideIcon,
-} from 'lucide-react';
+import { ArrowRight, ArrowUpRight, MapPin, Search } from 'lucide-react';
+import AnimatedIcon from '@/components/ui/AnimatedIcon';
 
 const CITY_OPTIONS = [
   'Delhi-NCR',
@@ -60,24 +40,29 @@ const FALLBACK_CATEGORIES = [
   'Culture',
 ];
 
-const CATEGORY_ICONS: Record<string, LucideIcon> = {
-  music: Music,
-  nightlife: MoonStar,
-  sports: Trophy,
-  food: UtensilsCrossed,
-  art: Palette,
-  culture: Palette,
-  comedy: Laugh,
-  technology: Cpu,
-  festivals: Sparkles,
-};
-
 function scrollToDiscover() {
   document.getElementById('discover')?.scrollIntoView({
     behavior: 'smooth',
     block: 'start',
   });
 }
+
+/* Questions carry only facts the product already states (in-app QR pass,
+   organizer-published listings, organizer-set prices). */
+const QUESTIONS = [
+  {
+    q: 'What does a ticket get me?',
+    a: 'A QR pass in the app, and the gate scanner reads it once.',
+  },
+  {
+    q: 'Who lists the events?',
+    a: 'The organizers. Every listing and price is published from their dashboard.',
+  },
+  {
+    q: 'What does it cost?',
+    a: 'Organizers set their own prices. Where tiers exist, you see the lowest first.',
+  },
+];
 
 export default function HomePage() {
   const [dbEvents, setDbEvents] = useState<Event[]>([]);
@@ -156,25 +141,8 @@ export default function HomePage() {
       );
   }, [dbEvents]);
 
-  const featured = upcomingEvents[0] ?? dbEvents[0] ?? null;
-
-  const sideEvents = useMemo(() => {
-    const source = upcomingEvents.length > 0 ? upcomingEvents : dbEvents;
-
-    return source
-      .filter((event) => event.id !== featured?.id)
-      .slice(0, 3);
-  }, [dbEvents, featured, upcomingEvents]);
-
   const topCities = useMemo(() => {
-    const cityMap = new Map<
-      string,
-      {
-        name: string;
-        count: number;
-        cover?: string;
-      }
-    >();
+    const cityMap = new Map<string, { name: string; count: number }>();
 
     for (const event of dbEvents) {
       const city = normalizeCity(event.venue?.city);
@@ -187,10 +155,6 @@ export default function HomePage() {
       };
 
       current.count += 1;
-
-      if (!current.cover && event.cover_image_url) {
-        current.cover = event.cover_image_url;
-      }
 
       cityMap.set(city, current);
     }
@@ -240,189 +204,115 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#050505] text-[#F5F5F2]">
+    <div className="min-h-svh bg-[color:var(--color-paper)] text-[color:var(--color-ink)]">
       <Navbar />
 
-      {/* HERO */}
-      <section className="relative overflow-hidden border-b border-white/[0.08]">
-        <div className="absolute inset-0">
+      {/* HERO · Index posture · the thing itself, close */}
+      <section className="relative isolate overflow-hidden border-b border-[color:var(--color-rule)]">
+        <div data-slot="hero" data-alt="The organizer's own photograph of a real event or venue, full-bleed behind the head" className="absolute inset-0" aria-hidden="true">
           <Image
-            src={brandAssets.hero}
+            src="/photos/beach-please-2022-crowd-stage-lights-night-performance-1920.jpg"
             alt=""
             fill
             priority
             sizes="100vw"
-            className="object-cover object-center opacity-35"
+            className="object-cover object-[center_38%]"
           />
 
-          <div className="absolute inset-0 bg-[#050505]/75" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,color-mix(in_oklab,var(--color-paper)_82%,transparent),color-mix(in_oklab,var(--color-paper)_38%,transparent)_58%,color-mix(in_oklab,var(--color-paper)_66%,transparent))]" />
 
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_25%,rgba(214,180,122,0.16),transparent_30%),radial-gradient(circle_at_15%_80%,rgba(255,255,255,0.05),transparent_28%)]" />
-
-          <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#050505] to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[color:var(--color-paper)] to-transparent" />
         </div>
 
-        <div className="relative z-10 mx-auto max-w-[1440px] px-5 pb-24 pt-16 sm:px-8 lg:px-12 lg:pb-28 lg:pt-24">
-          <div className="max-w-5xl">
-            <div className="mb-7 inline-flex items-center gap-3 rounded-full border border-[#D6B47A]/25 bg-black/35 px-4 py-2 backdrop-blur-md">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#D6B47A] shadow-[0_0_14px_rgba(214,180,122,0.8)]" />
-              <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#D6B47A]">
-                Live events across India
-              </span>
-            </div>
-
-            <h1 className="max-w-5xl font-display text-[3.4rem] font-semibold leading-[0.92] tracking-[-0.055em] sm:text-6xl md:text-7xl lg:text-[6.8rem]">
-              Find something
-              <span className="block text-[#D6B47A]">worth showing up for.</span>
+        <div className="relative z-10 mx-auto w-full max-w-[1360px] px-5 pb-20 pt-24 sm:px-8 lg:px-12 lg:pb-28 lg:pt-36">
+          <div className="max-w-[46rem]">
+            <h1 className="max-w-[14ch] text-[clamp(2.75rem,7vw,5.5rem)] [text-wrap:balance]">
+              Find something worth showing up for.
             </h1>
 
-            <p className="mt-8 max-w-2xl text-sm leading-7 text-[#A7A39B] sm:text-base sm:leading-8">
-              Discover concerts, festivals, nightlife, sports, food experiences,
-              technology events and everything happening around you.
+            <p className="mt-6 max-w-[52ch] text-base leading-[1.55] text-[color:var(--color-ink-2)] sm:text-lg">
+              Concerts to conferences across India, listed by the
+              people who run them.
             </p>
 
-            {/* SEARCH */}
-            <div className="mt-10 max-w-4xl rounded-[1.35rem] border border-white/[0.10] bg-[#0B0B0B]/90 p-2 shadow-[0_25px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl">
+            <div className="mt-10 max-w-4xl p-2" style={{ borderRadius: 'var(--radius-card)' }}>
               <div className="grid gap-2 md:grid-cols-[1fr_1fr_1.2fr_auto]">
-                <div className="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-white/[0.025] px-4 py-3.5">
-                  <MapPin className="h-4 w-4 shrink-0 text-[#D6B47A]" />
+                <label className="flex items-center gap-3 border border-[color:var(--color-muted)] bg-[color:var(--color-paper-3)] px-4 py-2.5" style={{ borderRadius: 'var(--radius-well)' }}>
+                  <span className="sr-only">City</span>
+                  <MapPin className="h-4 w-4 shrink-0 text-[color:var(--color-muted)]" aria-hidden="true" />
+                  <select
+                    id="hero-city"
+                    value={selectedCity}
+                    onChange={(event) =>
+                      setSelectedCity(event.target.value)
+                    }
+                    className="min-h-[44px] w-full cursor-pointer bg-transparent text-sm font-medium text-[color:var(--color-ink)] outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    {cityOptions.map((city) => (
+                      <option
+                        key={city}
+                        value={city}
+                        className="bg-[color:var(--color-paper-2)] text-[color:var(--color-ink)]"
+                      >
+                        {city}
+                      </option>
+                    ))}
+                  </select>
+                </label>
 
-                  <div className="min-w-0">
-                    <label
-                      htmlFor="hero-city"
-                      className="block text-[9px] font-semibold uppercase tracking-[0.18em] text-[#77736C]"
-                    >
-                      Location
-                    </label>
+                <label className="flex items-center gap-3 border border-[color:var(--color-muted)] bg-[color:var(--color-paper-3)] px-4 py-2.5" style={{ borderRadius: 'var(--radius-well)' }}>
+                  <span className="sr-only">Category</span>
+                  <select
+                    id="hero-category"
+                    value={selectedCategory}
+                    onChange={(event) =>
+                      setSelectedCategory(event.target.value)
+                    }
+                    className="min-h-[44px] w-full cursor-pointer bg-transparent text-sm font-medium text-[color:var(--color-ink)] outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    {categories.map((category) => (
+                      <option
+                        key={category}
+                        value={category}
+                        className="bg-[color:var(--color-paper-2)] text-[color:var(--color-ink)]"
+                      >
+                        {category === 'All'
+                          ? 'All categories'
+                          : category}
+                      </option>
+                    ))}
+                  </select>
+                </label>
 
-                    <select
-                      id="hero-city"
-                      value={selectedCity}
-                      onChange={(event) =>
-                        setSelectedCity(event.target.value)
+                <label className="flex items-center gap-3 border border-[color:var(--color-muted)] bg-[color:var(--color-paper-3)] px-4 py-2.5" style={{ borderRadius: 'var(--radius-well)' }}>
+                  <Search className="h-4 w-4 shrink-0 text-[color:var(--color-muted)]" aria-hidden="true" />
+                  <input
+                    id="hero-search"
+                    type="search"
+                    value={searchQuery}
+                    onChange={(event) =>
+                      setSearchQuery(event.target.value)
+                    }
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter') {
+                        scrollToDiscover();
                       }
-                      className="mt-1 w-full cursor-pointer bg-transparent text-xs font-semibold text-[#F5F5F2] outline-none"
-                    >
-                      {cityOptions.map((city) => (
-                        <option
-                          key={city}
-                          value={city}
-                          className="bg-[#111111] text-[#F5F5F2]"
-                        >
-                          {city}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-white/[0.025] px-4 py-3.5">
-                  <Sparkles className="h-4 w-4 shrink-0 text-[#D6B47A]" />
-
-                  <div className="min-w-0">
-                    <label
-                      htmlFor="hero-category"
-                      className="block text-[9px] font-semibold uppercase tracking-[0.18em] text-[#77736C]"
-                    >
-                      Category
-                    </label>
-
-                    <select
-                      id="hero-category"
-                      value={selectedCategory}
-                      onChange={(event) =>
-                        setSelectedCategory(event.target.value)
-                      }
-                      className="mt-1 w-full cursor-pointer bg-transparent text-xs font-semibold text-[#F5F5F2] outline-none"
-                    >
-                      {categories.map((category) => (
-                        <option
-                          key={category}
-                          value={category}
-                          className="bg-[#111111] text-[#F5F5F2]"
-                        >
-                          {category === 'All'
-                            ? 'All categories'
-                            : category}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-white/[0.025] px-4 py-3.5">
-                  <Search className="h-4 w-4 shrink-0 text-[#77736C]" />
-
-                  <div className="min-w-0 flex-1">
-                    <label
-                      htmlFor="hero-search"
-                      className="block text-[9px] font-semibold uppercase tracking-[0.18em] text-[#77736C]"
-                    >
-                      Search
-                    </label>
-
-                    <input
-                      id="hero-search"
-                      type="search"
-                      value={searchQuery}
-                      onChange={(event) =>
-                        setSearchQuery(event.target.value)
-                      }
-                      onKeyDown={(event) => {
-                        if (event.key === 'Enter') {
-                          scrollToDiscover();
-                        }
-                      }}
-                      placeholder="Event, venue or city"
-                      className="mt-1 w-full bg-transparent text-xs font-semibold text-[#F5F5F2] outline-none placeholder:text-[#55524D]"
-                    />
-                  </div>
-                </div>
+                    }}
+                    placeholder="Search events"
+                    aria-label="Search events"
+                    className="min-h-[44px] w-full bg-transparent text-sm font-medium text-[color:var(--color-ink)] outline-none placeholder:text-[color:var(--color-muted)] disabled:cursor-not-allowed disabled:opacity-50"
+                  />
+                </label>
 
                 <button
                   type="button"
                   onClick={scrollToDiscover}
-                  className="inline-flex min-h-[58px] items-center justify-center gap-2 rounded-xl bg-[#D6B47A] px-6 text-xs font-bold text-[#050505] transition hover:bg-[#E2C791] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D6B47A]"
+                  className="btn-primary group md:h-[52px] md:self-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-focus)] active:bg-[color:var(--color-focus)] disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                  Explore
-                  <ArrowRight className="h-4 w-4" />
+                  Explore events
+                  <AnimatedIcon icon={ArrowRight} animation="nudge-x" size={16} />
                 </button>
               </div>
-            </div>
-
-            <div className="mt-9 flex flex-wrap gap-x-8 gap-y-4">
-              {[
-                {
-                  icon: Ticket,
-                  title: 'Real events',
-                  subtitle: 'Published by organizers',
-                },
-                {
-                  icon: ShieldCheck,
-                  title: 'Secure booking',
-                  subtitle: 'Protected checkout',
-                },
-                {
-                  icon: Zap,
-                  title: 'Instant access',
-                  subtitle: 'Tickets ready after booking',
-                },
-              ].map(({ icon: Icon, title, subtitle }) => (
-                <div key={title} className="flex items-center gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/[0.08] bg-white/[0.035] text-[#D6B47A]">
-                    <Icon className="h-4 w-4" />
-                  </div>
-
-                  <div>
-                    <p className="text-[11px] font-semibold text-[#F5F5F2]">
-                      {title}
-                    </p>
-                    <p className="mt-0.5 text-[10px] text-[#77736C]">
-                      {subtitle}
-                    </p>
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
         </div>
@@ -430,11 +320,11 @@ export default function HomePage() {
 
       {/* CONTENT */}
       {loading ? (
-        <section className="mx-auto w-full max-w-[1440px] px-5 py-20 sm:px-8 lg:px-12">
+        <section className="mx-auto w-full max-w-[1360px] px-5 py-20 sm:px-8 lg:px-12">
           <LoadingState message="Loading events…" />
         </section>
       ) : loadError ? (
-        <section className="mx-auto w-full max-w-[1440px] px-5 py-20 sm:px-8 lg:px-12">
+        <section className="mx-auto w-full max-w-[1360px] px-5 py-20 sm:px-8 lg:px-12">
           <ErrorState
             title="Could not load events"
             description={loadError}
@@ -443,231 +333,27 @@ export default function HomePage() {
       ) : (
         <>
           {!isSupabaseConfigured && (
-            <section className="mx-auto w-full max-w-[1440px] px-5 pt-8 sm:px-8 lg:px-12">
+            <section className="mx-auto w-full max-w-[1360px] px-5 pt-16 sm:px-8 lg:px-12">
               <ConfigNotice />
             </section>
           )}
 
-          {/* FEATURED */}
-          {featured && (
-            <section className="mx-auto w-full max-w-[1440px] px-5 py-12 sm:px-8 lg:px-12 lg:py-16">
-              <div className="mb-7 flex items-end justify-between gap-6">
-                <div>
-                  <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#D6B47A]">
-                    Curated for you
-                  </p>
-
-                  <h2 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">
-                    Featured events
-                  </h2>
-                </div>
-
-                <Link
-                  href="/events"
-                  className="hidden items-center gap-2 text-xs font-semibold text-[#A7A39B] transition hover:text-[#D6B47A] sm:flex"
-                >
-                  View all
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </Link>
-              </div>
-
-              <div className="grid gap-5 lg:grid-cols-[minmax(0,1.65fr)_minmax(330px,0.75fr)]">
-                <div className="overflow-hidden rounded-[1.5rem] border border-white/[0.08] bg-[#0B0B0B]">
-                  <EventCard event={featured} variant="featured" />
-                </div>
-
-                {sideEvents.length > 0 && (
-                  <div className="grid gap-3">
-                    {sideEvents.map((event) => (
-                      <Link
-                        key={event.id}
-                        href={`/events/${event.id}`}
-                        className="group flex min-h-[110px] items-center gap-4 rounded-[1.15rem] border border-white/[0.08] bg-[#0B0B0B] p-3 transition hover:border-[#D6B47A]/35 hover:bg-[#101010]"
-                      >
-                        <EventImage
-                          src={event.cover_image_url}
-                          alt={event.name || 'Event'}
-                          className="shrink-0 overflow-hidden rounded-xl"
-                          aspectClassName="h-[86px] w-[86px]"
-                        />
-
-                        <div className="min-w-0 flex-1">
-                          <div className="mb-1 flex items-center gap-2">
-                            <CalendarDays className="h-3 w-3 text-[#D6B47A]" />
-                            <span className="text-[9px] font-semibold uppercase tracking-wider text-[#77736C]">
-                              {formatEventDate(event.start_at)}
-                            </span>
-                          </div>
-
-                          <h3 className="truncate text-sm font-semibold text-[#F5F5F2]">
-                            {event.name}
-                          </h3>
-
-                          <p className="mt-1 truncate text-[11px] text-[#77736C]">
-                            {normalizeCity(event.venue?.city) || 'India'}
-                            {' · '}
-                            {getLowestPriceFormatted(event.ticket_types)}
-                          </p>
-                        </div>
-
-                        <ArrowUpRight className="mr-1 h-4 w-4 shrink-0 text-[#55524D] transition group-hover:text-[#D6B47A]" />
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </section>
-          )}
-
-          {/* CATEGORIES */}
-          {categories.length > 1 && (
-            <section className="border-y border-white/[0.06] bg-[#080808]">
-              <div className="mx-auto max-w-[1440px] px-5 py-12 sm:px-8 lg:px-12">
-                <div className="mb-7">
-                  <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#D6B47A]">
-                    Explore your interests
-                  </p>
-
-                  <h2 className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">
-                    Browse by category
-                  </h2>
-                </div>
-
-                <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4 lg:grid-cols-8">
-                  {categories
-                    .filter((category) => category !== 'All')
-                    .slice(0, 8)
-                    .map((category) => {
-                      const Icon =
-                        CATEGORY_ICONS[category.toLowerCase()] ??
-                        Sparkles;
-
-                      const selected = selectedCategory === category;
-
-                      return (
-                        <button
-                          key={category}
-                          type="button"
-                          onClick={() => pickCategory(category)}
-                          aria-pressed={selected}
-                          className={`group flex min-h-[112px] flex-col items-start justify-between rounded-xl border p-4 text-left transition ${
-                            selected
-                              ? 'border-[#D6B47A]/45 bg-[#D6B47A]/[0.08]'
-                              : 'border-white/[0.07] bg-[#0D0D0D] hover:border-[#D6B47A]/25 hover:bg-[#111111]'
-                          }`}
-                        >
-                          <Icon
-                            className={`h-5 w-5 ${
-                              selected
-                                ? 'text-[#D6B47A]'
-                                : 'text-[#77736C] group-hover:text-[#D6B47A]'
-                            }`}
-                          />
-
-                          <div>
-                            <span className="block text-xs font-semibold text-[#F5F5F2]">
-                              {category}
-                            </span>
-
-                            <span className="mt-1 flex items-center gap-1 text-[9px] uppercase tracking-wider text-[#55524D]">
-                              Explore
-                              <ChevronRight className="h-3 w-3" />
-                            </span>
-                          </div>
-                        </button>
-                      );
-                    })}
-                </div>
-              </div>
-            </section>
-          )}
-
-          {/* CITIES */}
-          {topCities.length > 0 && (
-            <section className="mx-auto w-full max-w-[1440px] px-5 py-14 sm:px-8 lg:px-12 lg:py-18">
-              <div className="mb-7 flex items-end justify-between gap-5">
-                <div>
-                  <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#D6B47A]">
-                    Where it&apos;s happening
-                  </p>
-
-                  <h2 className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">
-                    Explore cities
-                  </h2>
-                </div>
-
-                <div className="hidden items-center gap-2 text-[10px] uppercase tracking-wider text-[#77736C] sm:flex">
-                  <MapPin className="h-3.5 w-3.5" />
-                  India
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-                {topCities.map((city) => (
-                  <button
-                    key={city.name}
-                    type="button"
-                    onClick={() => pickCity(city.name)}
-                    className="group relative aspect-[4/5] overflow-hidden rounded-[1.15rem] border border-white/[0.08] bg-[#111111] text-left"
-                  >
-                    {city.cover ? (
-                      <EventImage
-                        src={city.cover}
-                        alt={`${city.name} events`}
-                        className="h-full w-full transition duration-500 group-hover:scale-105"
-                        aspectClassName="h-full"
-                      />
-                    ) : (
-                      <div className="h-full w-full bg-[#111111]" />
-                    )}
-
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/15 to-transparent" />
-
-                    <div className="absolute bottom-0 left-0 right-0 p-4">
-                      <p className="text-xs font-bold uppercase tracking-[0.14em] text-white">
-                        {city.name}
-                      </p>
-
-                      <p className="mt-1 text-[10px] text-[#A7A39B]">
-                        {city.count}{' '}
-                        {city.count === 1 ? 'event' : 'events'}
-                      </p>
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </section>
-          )}
-
-          {/* DISCOVERY */}
+          {/* THE LINEUP · Index, set large */}
           <section
             id="discover"
-            className="scroll-mt-24 border-t border-white/[0.06] bg-[#080808]"
+            className="scroll-mt-24"
           >
-            <div className="mx-auto max-w-[1440px] px-5 py-14 sm:px-8 lg:px-12 lg:py-18">
-              <div className="mb-9 flex flex-col gap-6 border-b border-white/[0.07] pb-7 lg:flex-row lg:items-end lg:justify-between">
-                <div>
-                  <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#D6B47A]">
-                    Discover
-                  </p>
-
-                  <h2 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">
-                    {selectedCategory === 'All'
-                      ? 'What’s happening now'
-                      : selectedCategory}
-                  </h2>
-
-                  <p className="mt-2 text-xs text-[#77736C]">
-                    {selectedCity === 'All Cities'
-                      ? 'Across India'
-                      : `Events in ${selectedCity}`}
-                  </p>
-                </div>
+            <div className="mx-auto w-full max-w-[1360px] px-5 pb-24 pt-20 sm:px-8 lg:px-12 lg:pb-32 lg:pt-28">
+              <div className="flex flex-col gap-6 border-b border-[color:var(--color-rule)] pb-8 lg:flex-row lg:items-end lg:justify-between">
+                <h2 className="text-[clamp(2rem,4vw,3.25rem)] [text-wrap:balance]">
+                  {selectedCategory === 'All'
+                    ? 'What’s happening now'
+                    : selectedCategory}
+                </h2>
 
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-                  <div className="relative">
-                    <Search className="pointer-events-none absolute left-4 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[#55524D]" />
-
+                  <label className="flex items-center gap-3 border border-[color:var(--color-muted)] bg-[color:var(--color-paper-2)] px-4 py-2.5" style={{ borderRadius: 'var(--radius-well)' }}>
+                    <Search className="h-4 w-4 shrink-0 text-[color:var(--color-muted)]" aria-hidden="true" />
                     <input
                       type="search"
                       placeholder="Search events or venues"
@@ -676,9 +362,9 @@ export default function HomePage() {
                         setSearchQuery(event.target.value)
                       }
                       aria-label="Search events"
-                      className="w-full rounded-full border border-white/[0.09] bg-[#101010] py-3 pl-10 pr-4 text-xs text-[#F5F5F2] outline-none transition placeholder:text-[#55524D] focus:border-[#D6B47A]/50 sm:w-64"
+                      className="min-h-[44px] w-full bg-transparent text-sm text-[color:var(--color-ink)] outline-none placeholder:text-[color:var(--color-muted)] disabled:cursor-not-allowed disabled:opacity-50 sm:w-64"
                     />
-                  </div>
+                  </label>
 
                   {(selectedCity !== 'All Cities' ||
                     selectedCategory !== 'All' ||
@@ -686,7 +372,7 @@ export default function HomePage() {
                     <button
                       type="button"
                       onClick={resetFilters}
-                      className="rounded-full border border-white/[0.08] px-4 py-3 text-[10px] font-semibold uppercase tracking-wider text-[#A7A39B] transition hover:border-[#D6B47A]/30 hover:text-[#D6B47A]"
+                      className="btn-ghost min-h-[44px] px-5 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-focus)] active:bg-[color:var(--color-paper-3)]"
                     >
                       Reset
                     </button>
@@ -694,71 +380,222 @@ export default function HomePage() {
                 </div>
               </div>
 
+              {categories.length > 1 && (
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {categories
+                    .filter((category) => category !== 'All')
+                    .slice(0, 8)
+                    .map((category) => {
+                      const selected = selectedCategory === category;
+
+                      return (
+                        <button
+                          key={category}
+                          type="button"
+                          onClick={() => pickCategory(category)}
+                          aria-pressed={selected}
+                          className={`min-h-[44px] rounded-[var(--radius-pill)] px-5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-focus)] active:opacity-80 ${
+                            selected
+                              ? 'bg-[color:var(--color-accent)] text-[color:var(--color-accent-ink)]'
+                              : 'text-[color:var(--color-ink-2)] shadow-[inset_0_0_0_var(--rule-hair)_var(--color-rule)] hover:bg-[color:var(--color-paper-2)] hover:text-[color:var(--color-ink)]'
+                          }`}
+                        >
+                          {category}
+                        </button>
+                      );
+                    })}
+                </div>
+              )}
+
               {filteredEvents.length === 0 ? (
-                <div className="rounded-[1.5rem] border border-white/[0.07] bg-[#0D0D0D] px-6 py-24 text-center">
-                  <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-white/[0.08] bg-[#111111]">
-                    <Ticket className="h-5 w-5 text-[#55524D]" />
+                <div className="mt-12 grid items-center gap-10 lg:grid-cols-[1.1fr_minmax(0,1fr)]">
+                  <div>
+                    <p className="text-[color:var(--color-muted)]">
+                      Nothing here yet. The first published event lands in
+                      this list the moment an organizer switches it on.
+                    </p>
+
+                    <button
+                      type="button"
+                      onClick={resetFilters}
+                      className="btn-ghost mt-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-focus)] active:bg-[color:var(--color-paper-3)]"
+                    >
+                      Clear filters
+                    </button>
                   </div>
 
-                  <h3 className="mt-5 font-display text-lg font-semibold">
-                    No events found
-                  </h3>
-
-                  <p className="mx-auto mt-2 max-w-md text-xs leading-6 text-[#77736C]">
-                    Try another city, category, or search term to discover
-                    available events.
-                  </p>
-
-                  <button
-                    type="button"
-                    onClick={resetFilters}
-                    className="mt-6 rounded-full bg-[#D6B47A] px-5 py-2.5 text-xs font-bold text-[#050505] transition hover:bg-[#E2C791]"
+                  <figure
+                    data-slot="photo-empty"
+                    className="photo relative overflow-hidden"
+                    style={{
+                      borderRadius: 'var(--radius-card)',
+                      aspectRatio: '16 / 9',
+                    }}
                   >
-                    Clear filters
-                  </button>
+                    <Image
+                      src="/photos/tianjin-grand-theater-concert-hall-1920.jpg"
+                      alt="A concert hall with tiered wooden seating, waiting for an audience"
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover"
+                    />
+                  </figure>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+                <ul className="divide-y divide-[color:var(--color-rule)]">
                   {filteredEvents.map((event) => (
-                    <EventCard key={event.id} event={event} />
+                    <li key={event.id}>
+                      <Link
+                        href={`/events/${event.id}`}
+                        className="group grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-5 py-6 transition-colors lg:grid-cols-[7rem_minmax(0,1fr)_10rem_auto] lg:gap-8"
+                      >
+                        <time
+                          dateTime={event.start_at ?? undefined}
+                          className="font-display text-xl leading-none tracking-[-0.03em] text-[color:var(--color-ink)] [font-variant-numeric:tabular-nums] sm:text-2xl"
+                        >
+                          {formatEventDate(event.start_at)}
+                        </time>
+
+                        <span className="min-w-0">
+                          <span className="block truncate font-display text-2xl leading-tight sm:text-3xl">
+                            {event.name}
+                          </span>
+
+                          <span className="mt-1 block truncate text-sm text-[color:var(--color-muted)]">
+                            {event.venue?.name
+                              ? `${event.venue.name}, `
+                              : ''}
+                            {normalizeCity(event.venue?.city) || 'India'}
+                          </span>
+                        </span>
+
+                        <span className="hidden text-sm text-[color:var(--color-ink-2)] lg:block">
+                          {getLowestPriceFormatted(event.ticket_types)}
+                        </span>
+
+                        <EventImage
+                          src={event.cover_image_url}
+                          alt=""
+                          className="hidden shrink-0 sm:block"
+                          aspectClassName="h-[72px] w-[112px]"
+                        />
+
+                        <ArrowUpRight
+                          className="h-5 w-5 shrink-0 text-[color:var(--color-muted)] transition-colors group-hover:text-[color:var(--color-accent)]"
+                          aria-hidden="true"
+                        />
+                      </Link>
+                    </li>
                   ))}
-                </div>
+                </ul>
               )}
             </div>
           </section>
 
-          {/* ORGANIZER CTA */}
-          <section className="mx-auto w-full max-w-[1440px] px-5 py-14 sm:px-8 lg:px-12 lg:py-20">
-            <div className="relative overflow-hidden rounded-[1.75rem] border border-[#D6B47A]/20 bg-[#0C0C0C]">
-              <div className="absolute right-0 top-0 h-64 w-64 rounded-full bg-[#D6B47A]/[0.07] blur-3xl" />
+          {/* THE PLACES · how to get there */}
+          {topCities.length > 0 && (
+            <section className="border-t border-[color:var(--color-rule)] bg-[color:var(--color-paper-2)]">
+              <div className="mx-auto w-full max-w-[1360px] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
+                <h2 className="text-[clamp(2rem,4vw,3.25rem)]">
+                  Where the doors are
+                </h2>
 
-              <div className="relative flex flex-col gap-8 p-7 sm:p-10 lg:flex-row lg:items-center lg:justify-between lg:p-12">
-                <div className="max-w-2xl">
-                  <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl border border-[#D6B47A]/25 bg-[#D6B47A]/[0.08] text-[#D6B47A]">
-                    <Users className="h-5 w-5" />
+                <ul className="mt-10 divide-y divide-[color:var(--color-rule)] border-y border-[color:var(--color-rule)]">
+                  {topCities.map((city) => (
+                    <li key={city.name}>
+                      <button
+                        type="button"
+                        onClick={() => pickCity(city.name)}
+                        className="group flex w-full items-center justify-between gap-6 py-5 text-left"
+                      >
+                        <span className="font-display text-2xl sm:text-3xl">
+                          {city.name}
+                        </span>
+
+                        <span className="flex items-center gap-4 text-sm text-[color:var(--color-muted)]">
+                          {city.count}
+                          {city.count === 1 ? ' event' : ' events'}
+                          <ArrowUpRight
+                            className="h-4 w-4 transition-colors group-hover:text-[color:var(--color-accent)]"
+                            aria-hidden="true"
+                          />
+                        </span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+          )}
+
+          {/* QUESTIONS · rows */}
+          <section className="border-t border-[color:var(--color-rule)]">
+            <div className="mx-auto w-full max-w-[1360px] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
+              <h2 className="text-[clamp(2rem,4vw,3.25rem)] [text-wrap:balance]">
+                Before you book
+              </h2>
+
+              <dl className="mt-10 divide-y divide-[color:var(--color-rule)] border-y border-[color:var(--color-rule)]">
+                {QUESTIONS.map(({ q, a }) => (
+                  <div
+                    key={q}
+                    className="grid gap-3 py-6 lg:grid-cols-[24rem_minmax(0,1fr)] lg:gap-12"
+                  >
+                    <dt className="font-display text-xl leading-snug sm:text-2xl">
+                      {q}
+                    </dt>
+
+                    <dd className="max-w-[65ch] text-base leading-[1.6] text-[color:var(--color-ink-2)]">
+                      {a}
+                    </dd>
                   </div>
+                ))}
+              </dl>
+            </div>
+          </section>
 
-                  <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#D6B47A]">
-                    For organizers
-                  </p>
+          {/* ORGANIZERS */}
+          <section className="border-t border-[color:var(--color-rule)] bg-[color:var(--color-paper-2)]">
+            <div className="mx-auto flex w-full max-w-[1360px] flex-col gap-8 px-5 py-16 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-12 lg:py-20">
+              <div className="max-w-2xl">
+                <h2 className="text-[clamp(2rem,4vw,3.25rem)] [text-wrap:balance]">
+                  Your event deserves a bigger room.
+                </h2>
 
-                  <h2 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">
-                    Your event deserves
-                    <span className="text-[#D6B47A]"> a bigger room.</span>
-                  </h2>
+                <p className="mt-4 max-w-xl text-base leading-[1.6] text-[color:var(--color-muted)]">
+                  Create events, sell tickets, manage attendees and run your
+                  entire event operation from one place.
+                </p>
+              </div>
 
-                  <p className="mt-4 max-w-xl text-sm leading-7 text-[#77736C]">
-                    Create events, sell tickets, manage attendees and run
-                    your entire event operation from one place.
-                  </p>
-                </div>
+              <Link
+                href="/organizer/events/new"
+                className="btn-primary shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-focus)] active:bg-[color:var(--color-focus)]"
+              >
+                Create your event
+              </Link>
+            </div>
+          </section>
 
-                <Link
-                  href="/organizer/events/new"
-                  className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-[#D6B47A] px-7 py-3.5 text-xs font-bold text-[#050505] transition hover:bg-[#E2C791] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D6B47A]"
+          {/* CLOSE · tickets again */}
+          <section className="border-t border-[color:var(--color-rule)]">
+            <div className="mx-auto w-full max-w-[1360px] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
+              <p className="max-w-[24ch] font-display text-[clamp(2.5rem,6vw,4.5rem)] leading-[1.0]">
+                Doors open all year.
+              </p>
+
+              <div className="mt-8 flex flex-wrap gap-3">
+                <button
+                  type="button"
+                  onClick={scrollToDiscover}
+                  className="btn-primary group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-focus)] active:bg-[color:var(--color-focus)]"
                 >
-                  Create your event
-                  <ArrowUpRight className="h-4 w-4" />
+                  Find events
+                  <AnimatedIcon icon={ArrowRight} animation="nudge-x" size={16} />
+                </button>
+
+                <Link href="/events" className="btn-ghost focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-focus)] active:bg-[color:var(--color-paper-3)]">
+                  See the full listing
                 </Link>
               </div>
             </div>

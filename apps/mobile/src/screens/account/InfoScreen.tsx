@@ -438,13 +438,14 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
 
+
   eyebrow: {
     color: colors.champagne,
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 2,
-    marginBottom: 11,
+        marginBottom: 11,
   },
+
 
   title: {
     color: '#F5F5F2',
@@ -455,7 +456,7 @@ const styles = StyleSheet.create({
   },
 
   intro: {
-    color: '#77736C',
+    color: colors.textMuted,
     fontSize: 13,
     lineHeight: 20,
     marginTop: 12,
@@ -475,6 +476,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#1D1D1D',
   },
 
+
   documentHeading: {
     color: '#E4E2DC',
     fontSize: 14,
@@ -485,7 +487,7 @@ const styles = StyleSheet.create({
   },
 
   documentBody: {
-    color: '#77736C',
+    color: colors.textMuted,
     fontSize: 12,
     lineHeight: 19,
   },
@@ -523,13 +525,14 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
 
+
   aboutEyebrow: {
     color: colors.champagne,
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 1.8,
-    marginBottom: 8,
+        marginBottom: 8,
   },
+
 
   aboutTitle: {
     color: '#F5F5F2',
@@ -563,12 +566,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
 
+
   infoLabel: {
     color: '#5F5C57',
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 1.5,
-  },
+      },
 
   infoValue: {
     color: '#D6D3CC',
@@ -585,13 +588,14 @@ const styles = StyleSheet.create({
     paddingTop: 26,
   },
 
+
   aboutStatementLabel: {
     color: '#5F5C57',
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 1.6,
-    marginBottom: 10,
+        marginBottom: 10,
   },
+
 
   aboutStatementText: {
     color: '#AAA69F',
@@ -660,13 +664,14 @@ const styles = StyleSheet.create({
     padding: 18,
   },
 
+
   contactEyebrow: {
     color: colors.champagne,
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 1.6,
-    marginBottom: 9,
+        marginBottom: 9,
   },
+
 
   contactTitle: {
     color: '#EAE8E2',

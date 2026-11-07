@@ -6,6 +6,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import { Text } from 'tamagui';
+import Svg, { G, Path, Rect } from 'react-native-svg';
 
 type Props = {
   size?: number;
@@ -16,7 +17,6 @@ type Props = {
 };
 
 const COLORS = {
-  background: '#050505',
   surface: '#111111',
   border: 'rgba(214,180,122,0.22)',
 
@@ -27,6 +27,12 @@ const COLORS = {
   muted: '#A7A39B',
 };
 
+// Aperture Pass mark: the C-gate admits the pass (256 grid, same geometry as web)
+const RING_PATH =
+  'M197.3 73.8 A88 88 0 1 0 197.3 182.2 L172.1 162.5 A56 56 0 1 1 172.1 93.5 Z';
+const CHEVRON_PATH =
+  'M122.9 78.9 L183.2 128 L122.9 177.1 L105.1 152.9 L132.8 128 L105.1 103.1 Z';
+
 function CtrlPassMark({
   size,
   app = false,
@@ -34,91 +40,35 @@ function CtrlPassMark({
   size: number;
   app?: boolean;
 }) {
-  const stroke = Math.max(2, size * 0.045);
+  // icon variant pads the mark like an app icon; mark fills the chip more
+  const markScale = app ? 0.72 : 0.78;
+  const center = 128 - 4 / markScale;
 
   return (
-    <View
+    <Svg
       accessible
       accessibilityLabel="CtrlPass logo"
-      style={[
-        styles.mark,
-        {
-          width: size,
-          height: size,
-          borderRadius: size * 0.27,
-          backgroundColor: COLORS.surface,
-          borderWidth: Math.max(1, size * 0.012),
-          borderColor: COLORS.border,
-        },
-      ]}
+      width={size}
+      height={size}
+      viewBox="0 0 256 256"
     >
-      {/* Outer control frame */}
-      <View
-        style={[
-          styles.frame,
-          {
-            width: size * 0.62,
-            height: size * 0.62,
-            borderRadius: size * 0.18,
-            borderWidth: stroke,
-          },
-        ]}
+      <Rect
+        x={1.5}
+        y={1.5}
+        width={253}
+        height={253}
+        rx={70}
+        fill={COLORS.surface}
+        stroke={COLORS.border}
+        strokeWidth={3}
       />
-
-      {/* C */}
-      <View
-        style={[
-          styles.cShape,
-          {
-            width: size * 0.34,
-            height: size * 0.34,
-            borderRadius: size * 0.17,
-            borderWidth: stroke,
-          },
-        ]}
-      />
-
-      {/* P / forward control bar */}
-      <View
-        style={[
-          styles.controlBar,
-          {
-            width: size * 0.25,
-            height: stroke,
-            borderRadius: stroke,
-            right: size * 0.15,
-          },
-        ]}
-      />
-
-      <View
-        style={[
-          styles.controlDot,
-          {
-            width: size * 0.075,
-            height: size * 0.075,
-            borderRadius: size * 0.0375,
-            right: size * 0.145,
-            top: size * 0.35,
-          },
-        ]}
-      />
-
-      {app ? (
-        <View
-          style={[
-            styles.appAccent,
-            {
-              width: size * 0.10,
-              height: size * 0.10,
-              borderRadius: size * 0.05,
-              bottom: size * 0.13,
-              right: size * 0.13,
-            },
-          ]}
-        />
-      ) : null}
-    </View>
+      <G
+        transform={`translate(128 ${center}) scale(${markScale}) translate(-128 -128)`}
+      >
+        <Path d={RING_PATH} fill={COLORS.champagne} fillRule="evenodd" />
+        <Path d={CHEVRON_PATH} fill={COLORS.champagneBright} />
+      </G>
+    </Svg>
   );
 }
 
@@ -187,57 +137,6 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-  },
-
-  mark: {
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    overflow: 'hidden',
-  },
-
-  frame: {
-    position: 'absolute',
-
-    borderColor: COLORS.champagne,
-
-    transform: [
-      {
-        rotate: '45deg',
-      },
-    ],
-  },
-
-  cShape: {
-    position: 'absolute',
-
-    borderColor: COLORS.champagneBright,
-
-    borderRightColor: 'transparent',
-
-    transform: [
-      {
-        rotate: '-35deg',
-      },
-    ],
-  },
-
-  controlBar: {
-    position: 'absolute',
-
-    backgroundColor: COLORS.champagneBright,
-  },
-
-  controlDot: {
-    position: 'absolute',
-
-    backgroundColor: COLORS.champagne,
-  },
-
-  appAccent: {
-    position: 'absolute',
-
-    backgroundColor: COLORS.champagneBright,
   },
 
   wordmarkContainer: {

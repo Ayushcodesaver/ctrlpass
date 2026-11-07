@@ -455,13 +455,14 @@ const styles = StyleSheet.create({
     marginBottom: 31,
   },
 
+
   eyebrow: {
     color: colors.champagne,
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 2,
-    marginBottom: 11,
+        marginBottom: 11,
   },
+
 
   title: {
     color: '#F5F5F2',
@@ -472,7 +473,7 @@ const styles = StyleSheet.create({
   },
 
   subtitle: {
-    color: '#77736C',
+    color: colors.textMuted,
     fontSize: 13,
     lineHeight: 20,
     marginTop: 13,
@@ -485,12 +486,12 @@ const styles = StyleSheet.create({
     marginBottom: 31,
   },
 
+
   sectionLabel: {
     color: '#5F5C57',
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 1.6,
-    marginBottom: 11,
+        marginBottom: 11,
   },
 
   currentRow: {
@@ -591,7 +592,7 @@ const styles = StyleSheet.create({
   },
 
   validationTextNeutral: {
-    color: '#77736C',
+    color: colors.textMuted,
   },
 
   /* Flow */
@@ -621,12 +622,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
+
   flowNumberText: {
     color: colors.champagne,
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 0.5,
-  },
+      },
 
   flowCopy: {
     flex: 1,

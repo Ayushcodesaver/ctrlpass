@@ -293,6 +293,7 @@ export default function ProfileSetupScreen() {
  * to keep the screen structure easy to scan.
  */
 import { TextInput } from 'react-native';
+import { colors } from '../../theme';
 
 const styles = StyleSheet.create({
   flex: {
@@ -334,13 +335,14 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
 
+
   kicker: {
     color: '#9E7B48',
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 2,
-    marginBottom: 12,
+        marginBottom: 12,
   },
+
 
   title: {
     color: '#F5F5F2',
@@ -367,12 +369,12 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
 
+
   sectionEyebrow: {
     color: '#66625C',
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 1.7,
-  },
+      },
 
   sectionHint: {
     color: '#4F4C47',
@@ -393,12 +395,12 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
   },
 
+
   label: {
-    color: '#77736C',
-    fontSize: 8,
+    color: colors.textMuted,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 1.5,
-    marginBottom: 8,
+        marginBottom: 8,
   },
 
   inputWrap: {

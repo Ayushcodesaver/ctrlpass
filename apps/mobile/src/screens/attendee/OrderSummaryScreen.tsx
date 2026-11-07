@@ -819,12 +819,13 @@ const s = StyleSheet.create({
     fontWeight: typography.fontWeight.bold,
   },
 
+
   stepLabel: {
     color: 'rgba(214,180,122,0.72)',
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1.55,
-  },
+      },
+
 
   title: {
     color: colors.textPrimary,
@@ -899,12 +900,12 @@ const s = StyleSheet.create({
     borderColor: colors.error,
   },
 
+
   holdEyebrow: {
     color: '#66615A',
-    fontSize: 7,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1.3,
-  },
+      },
 
   holdTitle: {
     color: colors.textPrimary,
@@ -920,6 +921,7 @@ const s = StyleSheet.create({
   timerBlock: {
     alignItems: 'flex-end',
   },
+
 
   timerValue: {
     color: colors.champagne,
@@ -955,12 +957,12 @@ const s = StyleSheet.create({
     marginBottom: 10,
   },
 
+
   sectionEyebrow: {
     color: 'rgba(214,180,122,0.68)',
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1.5,
-    marginBottom: 9,
+        marginBottom: 9,
   },
 
   quantityLabel: {
@@ -969,12 +971,12 @@ const s = StyleSheet.create({
     paddingBottom: 2,
   },
 
+
   editHint: {
     color: '#56524D',
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: typography.fontWeight.semibold,
-    letterSpacing: 0.7,
-    paddingBottom: 2,
+        paddingBottom: 2,
   },
 
   /* ---------------------------------------------------------------
@@ -1004,6 +1006,7 @@ const s = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
+
 
   eventName: {
     color: colors.textPrimary,
@@ -1187,6 +1190,7 @@ const s = StyleSheet.create({
     justifyContent: 'space-between',
   },
 
+
   totalLabel: {
     color: colors.textPrimary,
     fontSize: 12,
@@ -1199,6 +1203,7 @@ const s = StyleSheet.create({
     fontSize: 8,
     marginTop: 3,
   },
+
 
   totalValue: {
     color: colors.champagne,
@@ -1254,7 +1259,7 @@ const s = StyleSheet.create({
   },
 
   trustTitle: {
-    color: '#77736C',
+    color: colors.textMuted,
     fontSize: 9,
     fontWeight: typography.fontWeight.semibold,
   },
@@ -1265,12 +1270,12 @@ const s = StyleSheet.create({
     marginTop: 2,
   },
 
+
   cashfree: {
     color: '#55514C',
-    fontSize: 7,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1,
-  },
+      },
 
   /* ---------------------------------------------------------------
      FOOTER
@@ -1289,12 +1294,12 @@ const s = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.07)',
   },
 
+
   footerText: {
     color: '#484540',
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 2,
-  },
+      },
 
   /* ---------------------------------------------------------------
      STICKY CTA
@@ -1323,12 +1328,13 @@ const s = StyleSheet.create({
     minWidth: 0,
   },
 
+
   bottomLabel: {
     color: '#5F5B55',
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: typography.fontWeight.bold,
-    letterSpacing: 1.2,
-  },
+      },
+
 
   bottomValue: {
     color: colors.textPrimary,

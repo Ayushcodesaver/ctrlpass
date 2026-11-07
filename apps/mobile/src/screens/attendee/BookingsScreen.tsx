@@ -152,6 +152,20 @@ export default function BookingsScreen() {
     [bookings],
   );
 
+  const renderBooking = useCallback(
+    ({ item }: { item: Booking }) => (
+      <BookingRow
+        booking={item}
+        onPress={() =>
+          navigation.navigate('BookingStatus', {
+            bookingId: item.id,
+          })
+        }
+      />
+    ),
+    [navigation],
+  );
+
   if (loading) {
     return (
       <View style={styles.loadingScreen}>
@@ -259,19 +273,7 @@ export default function BookingsScreen() {
             ) : null}
           </View>
         }
-        renderItem={({ item }) => (
-          <BookingRow
-            booking={item}
-            onPress={() =>
-              navigation.navigate(
-                'BookingStatus',
-                {
-                  bookingId: item.id,
-                },
-              )
-            }
-          />
-        )}
+        renderItem={renderBooking}
         ListEmptyComponent={
           <EmptyOrders hasBookings={bookings.length > 0} />
         }
@@ -518,13 +520,14 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
 
+
   eyebrow: {
     color: colors.champagne,
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 2,
-    marginBottom: 10,
+        marginBottom: 10,
   },
+
 
   title: {
     color: '#F5F5F2',
@@ -535,7 +538,7 @@ const styles = StyleSheet.create({
   },
 
   subtitle: {
-    color: '#77736C',
+    color: colors.textMuted,
     fontSize: 13,
     lineHeight: 20,
     marginTop: 10,
@@ -562,6 +565,7 @@ const styles = StyleSheet.create({
     width: 105,
   },
 
+
   summaryNumber: {
     color: '#F5F5F2',
     fontSize: 28,
@@ -569,6 +573,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     letterSpacing: -1,
   },
+
 
   summaryNumberSmall: {
     color: colors.champagne,
@@ -578,12 +583,12 @@ const styles = StyleSheet.create({
     letterSpacing: -0.8,
   },
 
+
   summaryLabel: {
     color: '#5F5C57',
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 1.5,
-    marginTop: 5,
+        marginTop: 5,
   },
 
   summaryDivider: {
@@ -623,7 +628,7 @@ const styles = StyleSheet.create({
   },
 
   filterText: {
-    color: '#77736C',
+    color: colors.textMuted,
     fontSize: 11,
     fontWeight: '600',
   },
@@ -640,12 +645,12 @@ const styles = StyleSheet.create({
     marginBottom: 11,
   },
 
+
   sectionTitle: {
     color: '#65615B',
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 1.7,
-  },
+      },
 
   sectionCount: {
     color: '#4D4A45',
@@ -689,12 +694,12 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
 
+
   reference: {
-    color: '#77736C',
-    fontSize: 9,
+    color: colors.textMuted,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 1.3,
-  },
+      },
 
   status: {
     minHeight: 25,
@@ -705,11 +710,12 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
 
+
   statusText: {
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 0.2,
-  },
+      },
+
 
   eventName: {
     color: '#F1F0EB',
@@ -736,12 +742,12 @@ const styles = StyleSheet.create({
     minWidth: 0,
   },
 
+
   detailLabel: {
     color: '#5F5C57',
-    fontSize: 8,
+    fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 1.2,
-  },
+      },
 
   detailValue: {
     color: '#B8B5AE',
@@ -826,6 +832,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: '300',
   },
+
 
   emptyTitle: {
     color: '#E7E5DF',

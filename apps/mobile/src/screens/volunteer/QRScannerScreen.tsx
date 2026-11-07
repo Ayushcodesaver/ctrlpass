@@ -34,6 +34,7 @@ import {
   ScanRecord,
 } from '../../services/organizer';
 import { CheckInResult } from '../../types';
+import { colors } from '../../theme';
 
 /*
  * check_ins.result uses SUCCESS where the UI's CheckInResult union says VALID;
@@ -719,6 +720,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 12,
   },
 
+
   eventName: {
     color: '#F5F5F2',
     fontSize: 14,
@@ -740,12 +742,12 @@ const styles = StyleSheet.create({
     marginRight: 6,
   },
 
+
   liveText: {
     color: '#B8B4AC',
-    fontSize: 7,
+    fontSize: 11,
     fontWeight: '800',
-    letterSpacing: 1.3,
-  },
+      },
 
   liveDivider: {
     width: 1,
@@ -755,7 +757,7 @@ const styles = StyleSheet.create({
   },
 
   countText: {
-    color: '#77736C',
+    color: colors.textMuted,
     fontSize: 9,
   },
 
@@ -938,12 +940,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(127,191,154,0.11)',
   },
 
+
   grantedText: {
     color: '#7FBF9A',
-    fontSize: 7,
+    fontSize: 11,
     fontWeight: '800',
-    letterSpacing: 1,
-  },
+      },
 
   /* ───────── History ───────── */
 
@@ -971,12 +973,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
 
+
   historyEyebrow: {
     color: '#625E58',
-    fontSize: 7,
+    fontSize: 11,
     fontWeight: '800',
-    letterSpacing: 1.6,
-  },
+      },
 
   historyTitle: {
     color: '#E7E4DD',
@@ -1004,12 +1006,12 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
 
+
   totalLabel: {
     color: '#625E58',
-    fontSize: 6,
+    fontSize: 11,
     fontWeight: '800',
-    letterSpacing: 0.7,
-    marginLeft: 4,
+        marginLeft: 4,
   },
 
   historyContent: {
@@ -1036,11 +1038,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
+
   historyStatus: {
-    fontSize: 7,
+    fontSize: 11,
     fontWeight: '800',
-    letterSpacing: 0.8,
-  },
+      },
 
   historyName: {
     color: '#B8B4AC',
@@ -1121,13 +1123,14 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
 
+
   permissionEyebrow: {
     color: '#9E7B48',
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: '800',
-    letterSpacing: 2,
-    marginBottom: 12,
+        marginBottom: 12,
   },
+
 
   permissionTitle: {
     color: '#F5F5F2',
@@ -1173,7 +1176,7 @@ const styles = StyleSheet.create({
   },
 
   permissionBackText: {
-    color: '#77736C',
+    color: colors.textMuted,
     fontSize: 11,
   },
 

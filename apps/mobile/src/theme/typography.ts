@@ -1,7 +1,7 @@
 export const typography = {
   fontFamily: {
-    ui: 'System', // Plus Jakarta Sans fallback
-    display: 'System', // Editorial Serif fallback
+    ui: 'System',
+    display: 'serif', // kiln: Boska's slot — iOS New York / Android serif
     mono: 'monospace', // JetBrains Mono fallback
   },
   fontSize: {
